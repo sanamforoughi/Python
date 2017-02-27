@@ -1,11 +1,11 @@
 
-# Aim: Extracting info from the Twitter API based on a search term
+Aim: Extracting info from the Twitter API based on a search term
 
-# First: enter your consumer key, consumer secret, access token, access secret (you need a Twitter Webdev account)
+First Step: enter your consumer key, consumer secret, access token, access secret (you need a Twitter Webdev account)
 
-# define your listener class 
+Second Step: define your listener class 
 
 
-# Save Your file in CSV format 			
+Third Step: Save Your file in CSV format 			
 			
 
