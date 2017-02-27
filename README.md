@@ -28,7 +28,7 @@ class listener(StreamListener):
 			saveFile.write ('\n')
 			saveFile.close ()
 			return (True)
-		 except (BaseException), e: # don't stream twitter on wireless dumbass
+		 except (BaseException), e: # don't stream twitter on wireless!!
 			print 'failed ondata,',str(e)
 			time.sleep(5)
 
