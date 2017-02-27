@@ -1,13 +1,12 @@
 # Python
 Python Scripts
-# extracting info from the twitter API
-# steam sales and webscrape every single web page (including wiki)
+# Aim: extracting info from the twitter API based on search term
 from tweepy import Stream 
 from tweepy import OAuthHandler
 from tweepy.streaming import StreamListener # This is downloaded
 import time 
 
-#consumer key, consumer secret, access token, access secret
+# First: enter your consumer key, consumer secret, access token, access secret (you need a Twitter Webdev account)
 ckey='7hJsTCHYsi6dio5jkZIeWJiUB' 
 csecret='u6uLp27eITMGv3EbZf4VbgABI7NDRGq9zyYP4i7yXgjU1c6hRr'
 atoken='481343324-WonDjGMVzjxxUDbY8rfSbjOzoxM0cScoJybqZLjc'
@@ -40,5 +39,5 @@ auth = OAuthHandler(ckey,csecret)
 auth.set_access_token(atoken, asecret)
 twitterStream= Stream (auth, listener ()) # referring to line 12
 twitterStream.filter (track=["niantic labs"]) # you are streaming at least 8x the data you need
-# Open and you can edit it with notepad. 
+
 
