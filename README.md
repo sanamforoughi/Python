@@ -1,6 +1,6 @@
 # Python
 Python Scripts
-# Aim: extracting info from the twitter API based on search term
+# Aim: Extracting info from the Twitter API based on a search term
 from tweepy import Stream 
 from tweepy import OAuthHandler
 from tweepy.streaming import StreamListener # This is downloaded
