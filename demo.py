@@ -1,5 +1,4 @@
 # extracting info from the twitter API
-# steam sales and webscrape every single web page (including wiki)
 from tweepy import Stream 
 from tweepy import OAuthHandler
 from tweepy.streaming import StreamListener # This is downloaded
@@ -16,12 +15,12 @@ asecret='198CSXoYVi30s9NurkppiWPkUgDVBT9NRWbUNWWKuB3MJ'
 class listener(StreamListener):  
 
 	def on_data(self, data):
-		try: # This is to trim the data, try and except look 
+		try: # This is to trim the data, try and except loop
 			print (data)
 
 			tweet = data.split (', "text":"') [1]. split('","source"') #JSON Format
 			print (tweet)
-			saveThis=str(time.time()+'::::' + tweet ) # safest, not a comma because it's highlily likely that people are going to put a colon
+			saveThis=str(time.time()+'::::' + tweet ) # safest, not a comma because it's highlily likely that people are going to use that, put a colon
 			saveFile = open ('twitDB2.csv','a')
 			saveFile.write (saveThis)
 			saveFile.write ('\n')
@@ -37,5 +36,5 @@ class listener(StreamListener):
 auth = OAuthHandler(ckey,csecret)
 auth.set_access_token(atoken, asecret)
 twitterStream= Stream (auth, listener ()) # referring to line 12
-twitterStream.filter (track=["niantic labs"]) # you are streaming at least 8x the data you need
+twitterStream.filter (track=["niantic labs"]) # you are streaming at least 8x the data you need so adjust the time accordingly
 # Open and you can edit it with notepad. 
