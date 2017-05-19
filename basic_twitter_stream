@@ -1,0 +1,25 @@
+from tweepy import Stream 
+from tweepy import OAuthHandler
+from tweepy.streaming import StreamListener # This is downloaded
+
+#consumer key, consumer secret, access token, access secret
+ckey='7hJsTCHYsi6dio5jkZIeWJiUB'
+csecret='u6uLp27eITMGv3EbZf4VbgABI7NDRGq9zyYP4i7yXgjU1c6hRr'
+atoken='481343324-WonDjGMVzjxxUDbY8rfSbjOzoxM0cScoJybqZLjc'
+asecret='198CSXoYVi30s9NurkppiWPkUgDVBT9NRWbUNWWKuB3MJ'
+
+# define your listener class 
+
+class listener(StreamListener):  
+
+	def on_data(self, data):
+		print (data)
+		return (True)
+
+	def on_error(self,status):
+		print (status)
+
+auth = OAuthHandler(ckey,csecret)
+auth.set_access_token(atoken, asecret)
+twitterStream= Stream (auth, listener ()) # referring to line 12
+twitterStream.filter (track=["huel"]) # you are streaming at least 8x the data you need
