@@ -1,8 +1,7 @@
-# basic regression with stock prices
 import pandas as pd
 import quandl #quandl.com 
 
-quandl.ApiConfig.api_key = 'ENTERKEY'
+quandl.ApiConfig.api_key = 'ENTERYOURKEY'
 
 df = quandl.get_table('WIKI/PRICES')
 
