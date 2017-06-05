@@ -1,0 +1,23 @@
+# basic regression with stock prices
+import pandas as pd
+import quandl #quandl.com 
+
+quandl.ApiConfig.api_key = 'ENTERKEY'
+
+df = quandl.get_table('WIKI/PRICES')
+
+# print(df.head)
+
+# now you parse your data for example, adj_high is the stock split
+
+df = df[['adj_open',  'adj_high',  'adj_low',  'adj_close', 'adj_volume',]] #the margin of high/low tells you the volatility, prices are redundant though 
+
+df['HL_PCT'] = (df['adj_high'] - df['adj_low']) / df['adj_close'] * 100.0
+
+df['PCT_change'] = (df['adj_close'] - df['adj_open']) / df['adj_volume'] * 100.0
+
+df = df[['adj_close', 'HL_PCT', 'PCT_change', 'adj_volume']]
+print(df.head())
+
+
+# Next up import a csv and mongodb json etc.
