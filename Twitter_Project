@@ -1,4 +1,6 @@
 import tweepy
+#http://docs.tweepy.org/en/v3.5.0/api.html#status-methods
+from textblob import TextBlob
 
 consumer_key='72gylIu1f5o12BmNu7ceuKlYt'
 consumer_secret='9N5T226dA0iHuLvD9P7OKqG0lvrYKdVaxEtfDDnYcGjEsyCR1A'
@@ -17,14 +19,9 @@ api = tweepy.API(auth)
 #public_tweets = api.home_timeline()
 #for tweet in public_tweets:
     #print tweet.text
-try:
-    redirect_url = auth.get_authorization_url()
-except tweepy.TweepError:
-    print 'Error! Failed to get request token.'
+public_tweets = api.search('chooseblocks', count = 500, include_rts= True)
 
-#Get function
-#user = api.get_user('hassanrouhani')
-
-tweets= api.user_timeline(screen_name= 'pray', count = 10000, include_rts= True )
-
-print tweets 
+for tweet in public_tweets:
+	print(tweet.text)
+	analysis = TextBlob(tweet.text)
+	print(analysis.sentiment)
