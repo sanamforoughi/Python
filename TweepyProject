@@ -1,0 +1,30 @@
+import tweepy
+
+consumer_key='72gylIu1f5o12BmNu7ceuKlYt'
+consumer_secret='9N5T226dA0iHuLvD9P7OKqG0lvrYKdVaxEtfDDnYcGjEsyCR1A'
+access_token='481343324-ARHjDLR2JRfTVoDwpBMObcY4lR5uxKB0yvBILlha'
+access_token_secret='WNFJ9jHcL5IQjcKlaiMO39OoZG7K95cZ90yJTD7Ow4SXk'
+
+auth = tweepy.OAuthHandler(consumer_key, consumer_secret)
+auth.set_access_token(access_token, access_token_secret)
+
+#auth = tweepy.OAuthHandler(consumer_token, consumer_secret,callback_url)
+#If the callback URL will not be changing, it is best to just configure it statically.
+
+api = tweepy.API(auth)
+
+#This prints your home timeline
+#public_tweets = api.home_timeline()
+#for tweet in public_tweets:
+    #print tweet.text
+try:
+    redirect_url = auth.get_authorization_url()
+except tweepy.TweepError:
+    print 'Error! Failed to get request token.'
+
+#Get function
+#user = api.get_user('hassanrouhani')
+
+tweets= api.user_timeline(screen_name= 'pray', count = 10000, include_rts= True )
+
+print tweets 
