@@ -2,10 +2,10 @@ import tweepy
 #http://docs.tweepy.org/en/v3.5.0/api.html#status-methods
 from textblob import TextBlob
 
-consumer_key='72gylIu1f5o12BmNu7ceuKlYt'
-consumer_secret='9N5T226dA0iHuLvD9P7OKqG0lvrYKdVaxEtfDDnYcGjEsyCR1A'
-access_token='481343324-ARHjDLR2JRfTVoDwpBMObcY4lR5uxKB0yvBILlha'
-access_token_secret='WNFJ9jHcL5IQjcKlaiMO39OoZG7K95cZ90yJTD7Ow4SXk'
+consumer_key='
+consumer_secret='
+access_token='
+access_token_secret='
 
 auth = tweepy.OAuthHandler(consumer_key, consumer_secret)
 auth.set_access_token(access_token, access_token_secret)
