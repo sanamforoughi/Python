@@ -2,10 +2,10 @@ import tweepy
 #http://docs.tweepy.org/en/v3.5.0/api.html#status-methods
 from textblob import TextBlob
 
-consumer_key='
-consumer_secret='
-access_token='
-access_token_secret='
+consumer_key='P48SblJmv1CQ0Yyw4i8iBIcqu'
+consumer_secret='zkJSvvWoSpW7VOe9fsJSey3xY6XzXKQfbzMo76Y2Ac3WHA5Sm2'
+access_token='481343324-sYpIi0kEQIJ72LvkvKi0muYdoZPVRVUuWQACNGA4'
+access_token_secret='vIsp1OKuODATjGeclomLBYx1vJgwoNLUkih22pp1uaIaG'
 
 auth = tweepy.OAuthHandler(consumer_key, consumer_secret)
 auth.set_access_token(access_token, access_token_secret)
@@ -19,9 +19,29 @@ api = tweepy.API(auth)
 #public_tweets = api.home_timeline()
 #for tweet in public_tweets:
     #print tweet.text
-public_tweets = api.search('chooseblocks', count = 500, include_rts= True)
+try:
+    redirect_url = auth.get_authorization_url()
+except tweepy.TweepError:
+    print 'Error! Failed to get request token.'
+
+#Get function
+#user = api.get_user('oxfamgb')
+
+#Prints it all out in JSON format
+
+#tweet= api.user_timeline(screen_name= 'chooseblocks', count = 10000, include_rts= True )
+
+public_tweets = api.user_timeline(screen_name= 'chooseblocks', count = 10000, include_rts= True )
 
 for tweet in public_tweets:
 	print(tweet.text)
 	analysis = TextBlob(tweet.text)
 	print(analysis.sentiment)
+
+#CHALLENGE - Instead of printing out each tweet, save each Tweet to a CSV file
+#and label each one as either 'positive' or 'negative', depending on the sentiment 
+#You can decide the sentiment polarity threshold yourself
+
+#for tweet in tweets 
+#print(tweets.text)
+#analysis =TextBlob(tweet.text)
