@@ -8,10 +8,10 @@ from pprint import pprint
  
 warnings.filterwarnings("ignore")
  
-access_token = "4464294380-GHJ3PY...lEqzZ8FikULPnkxaS4huT"
-access_token_secret = "L033NEsDOA...tZVoaU8prpFbiREWhcVROw2"
-consumer_key = "D1G0bn...9Y88p"
-consumer_secret = "rGJjCU...FRISsiMURYlqCXJvOP"
+access_token = 
+access_token_secret = 
+consumer_key = 
+consumer_secret = 
  
 auth_handler = OAuthHandler(consumer_key, consumer_secret)
 auth_handler.set_access_token(access_token, access_token_secret)
