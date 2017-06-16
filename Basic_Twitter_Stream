@@ -22,4 +22,4 @@ class listener(StreamListener):
 auth = OAuthHandler(ckey,csecret)
 auth.set_access_token(atoken, asecret)
 twitterStream= Stream (auth, listener ()) # referring to line 12
-twitterStream.filter (track=["huel"]) # you are streaming at least 8x the data you need
+twitterStream.filter (track=["huel"]) # command C to stop, let it run
