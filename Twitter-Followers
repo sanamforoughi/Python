@@ -1,9 +1,6 @@
-"""
-http://stackoverflow.com/questions/31000178/how-to-get-large-list-of-followers-tweepy
-ask user for account name to harvest follower names from.
-print follower names to screen
-pause  users to screen
-"""
+# Code fetches followers count, statuses 
+# Fix "Rate limit reached. Sleeping for: 887" can only get 300 users every 15 minutes, leave code running for 2 days!? 
+
 import tweepy
 import time
 import csv
@@ -17,10 +14,10 @@ print "searching for followers of "+accountvar
 
 
 #Twitter API credentials
-consumer_key = "shhhhhh"
-consumer_secret = "shhhhhh"
-access_token = "shhhhhh"
-access_token_secret = "shhhhhh"
+consumer_key = "
+consumer_secret = "
+access_token = "
+access_token_secret = "
 
 
 
@@ -48,7 +45,7 @@ while True:
         #if (count>10):
         #    break
     except tweepy.TweepError:
-        #catches TweepError when rate limiting occurs, sleeps, then restarts.
+        #catches TweepError when rate limiting occurs, sleeps, then restarts :)
         #nominally 15 minnutes, make a bit longer to avoid attention.
         print "sleeping...."
         time.sleep(60*16)
@@ -69,14 +66,6 @@ while True:
 #apparently don't need to close csv.writer.
 print "completed, errorCount ="+str(errorCount)+" total users="+str(count)
     #print "@" + user.screen_name
-    #todo: write users to file, search users for interests, locations etc.
+    #to do: write users to file, search users for interests, locations etc.
 
-"""
-http://docs.tweepy.org/en/v3.5.0/api.html?highlight=tweeperror#TweepError
-NB: RateLimitError inherits TweepError.
-http://docs.tweepy.org/en/v3.2.0/api.html#API  wait_on_rate_limit & wait_on_rate_limit_notify
-NB: possibly makes the sleep redundant but leave until verified.
 
-todo: add log file functions to record triggers of wait_on_rate_limit & error messages.
-
-"""
