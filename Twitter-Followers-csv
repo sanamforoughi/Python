@@ -1,5 +1,5 @@
-# Code fetches followers count, statuses 
-# Fix "Rate limit reached. Sleeping for: 887" can only get 300 users every 15 minutes, leave code running for 2 days!? 
+# Code fetches followers count, tweets, location of users 
+# HOWEVER Fix "Rate limit reached. Sleeping for: 887" can only get 300 users every 15 minutes, leave code running for 2 days!? 
 
 import tweepy
 import time
