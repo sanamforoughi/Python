@@ -5,4 +5,5 @@ for w in example_words:
 	print(ps.stem(w))
 
 
-#Why does it print out proudli?...
+#Why does it print out proudli?.... The traditional NLP approach is: extract from the sentence a rich set of hand-designed features which are then fed to a
+standard classification algorithm, for example, a Support Vector Machine (SVM), often with a linear kernel.
