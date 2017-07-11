@@ -1,0 +1,8 @@
+ps=PorterStemmer()
+example_words = ["proudly", "donation", "proud"] 
+
+for w in example_words:
+	print(ps.stem(w))
+
+
+#Why does it print out proudli?...
