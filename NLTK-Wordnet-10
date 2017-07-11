@@ -1,5 +1,5 @@
 #Looking up context, synonyms of a word 
-#You're only going to use the semantic similarity 
+#You're only going to use the semantic similarity, marketing application= brand parity analysis
 
 
 from nltk.corpus import wordnet
