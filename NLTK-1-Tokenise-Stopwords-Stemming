@@ -23,6 +23,21 @@ for w in word_tokens:
 print(word_tokens)
 print(filtered_sentence) #removes stopwords 
 
+
+...
+ps=PorterStemmer()
+example_words = [“word1”, “word2”]
+
+for w in example_words:
+print(ps.stem(w))
+
+text=“”
+words = word_tokenize(text)
+
+for w in words:
+print(ps.stem(w))
+...
+
 #Stemming, personally I don't find this accurate...
 
 example_words = ["array","or","is","this","a","list?"]
