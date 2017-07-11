@@ -1,0 +1,63 @@
+#Looking up context, synonyms of a word 
+#You're only going to use the semantic similarity 
+
+
+from nltk.corpus import wordnet
+
+syns = wordnet.synsets("amazing")
+
+#synset and plan.n.01 can be used
+print(syns[0].name())
+
+# just the word
+print(syns[0].lemmas()[0].name()) # this will list out the lemmas so plan, program, programme for program 
+
+#this lists out the definition of your search term 
+print(syns[0].definition())
+
+#this lists out examples of your search term 
+print(syns[0].examples()) #this lists out examples of your search term 
+
+
+synonyms = [] # empty list..
+antonyms = []
+
+for syn in wordnet.synsets("amazing"): #word from unicef.. 
+    for l in syn.lemmas(): # treat the lemmas like synonyms and then #print("l:",l) to print out all the possible lemmas
+        synonyms.append(l.name())
+        if l.antonyms(): # this is appending the antonyms
+            antonyms.append(l.antonyms()[0].name()) #element zero?
+
+print(set(synonyms))
+print(set(antonyms))
+
+# semantic similarity 
+
+#w1 = wordnet.synset("eliminate.n.01") # this is the first one for the noun
+#w2 = wordnet.synset("help.n.01")
+#print(w1.wup_similarity(w2)) #wu and palmer, wrote a paper in the 90 abouts semantic similarity between words
+#this is so cool and will print the percentage! 
+
+w1 = wordnet.synset("baby.n.01")
+w2 = wordnet.synset("vaccine.n.01")
+print(w1.wup_similarity(w2))
+
+
+# prints out the synonyms for everything. 
+#why use this? to rewrite things, term papers, this is used in newsbots. they read and then swtich it around and claim it as their own.
+#google goal: 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
