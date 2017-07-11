@@ -1,6 +1,6 @@
 import nltk
 from nltk.tokenize import PunktSentenceTokenizer
-#This is useful because you can assess what part of speech tags are the most frequent. In this case it was NN, NNP and JJ
+#This is unsupervised machine learning; it is useful because you can assess what part of speech tags are the most frequent. In this case it was NN, NNP and JJ
 
 '''
 POS tag list:
@@ -53,7 +53,7 @@ def process_content():
             words = nltk.word_tokenize(i)
             tagged = nltk.pos_tag(words)
 
-            chunkGram = r"""Chunk: {<RB.?>*<VB.?>*<NNP>+<NN>?}"""
+            chunkGram = r"""Chunk: {<RB.?>*<VB.?>*<NNP>+<NN>?}""" # NN NNP JJ
 
             chunkParser = nltk.RegexpParser(chunkGram)
             chunked = chunkParser.parse(tagged)
@@ -64,4 +64,4 @@ def process_content():
         
 process_content()
 
-# if you don't want it displayed as a graph then print(chunked)
+# if you don't want it displayed as a graph then just print(chunked)
