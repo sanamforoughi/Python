@@ -1,0 +1,17 @@
+from nltk.stem import WordNetLemmatizer
+#Not as good as the Porter Stemmer, tested on unicef
+
+lemmatizer = WordNetLemmatizer() # this is defining your function
+
+print(lemmatizer.lemmatize("proudly"))
+print(lemmatizer.lemmatize("help"))
+print(lemmatizer.lemmatize("helping"))
+print(lemmatizer.lemmatize("amazing"))
+print(lemmatizer.lemmatize("babies"))
+print(lemmatizer.lemmatize("donate", pos="a")) # adjective
+print(lemmatizer.lemmatize("best", pos="a"))
+print(lemmatizer.lemmatize("party"))
+print(lemmatizer.lemmatize("win",'v')) # verb
+
+
+#In computational linguistics, lemmatisation is the algorithmic process of determining the lemma for a given word. 
