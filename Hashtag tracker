@@ -1,20 +1,32 @@
-from twython import Twython
+#!/usr/bin/env python
+# encoding: utf-8
 
-TWITTER_APP_KEY = '
-TWITTER_APP_KEY_SECRET = ' 
-TWITTER_ACCESS_TOKEN = '
-TWITTER_ACCESS_TOKEN_SECRET = '
+import tweepy
+import csv
 
 
-t = Twython(app_key=TWITTER_APP_KEY, 
-            app_secret=TWITTER_APP_KEY_SECRET, 
-            oauth_token=TWITTER_ACCESS_TOKEN, 
-            oauth_token_secret=TWITTER_ACCESS_TOKEN_SECRET)
 
-search = t.search(q='#
-                  count=20) # SO annoying, only 20!?!??!?!
+#Twitter API credentials
+consumer_key = "
+consumer_secret = ""
+access_token_key = ""
+access_token_secret = ""
 
-tweets = search['statuses']
+auth = tweepy.OAuthHandler(consumer_key, consumer_secret)
+auth.set_access_token(access_token_key, access_token_secret)
+api = tweepy.API(auth)
 
-for tweet in tweets:
-  print tweet['id_str'], '\n', tweet['text'], '\n\n\n'
+# Open/Create a file to append data
+csvFile = open('tweets.csv', 'a')
+#Use csv Writer
+csvWriter = csv.writer(csvFile)
+
+
+for tweet in tweepy.Cursor(api.search,q="#thebigknit",count=100,\
+                           lang="en",\
+                           since_id=2014-06-12).items():
+    print tweet.created_at, tweet.text
+    csvWriter.writerow([tweet.created_at, tweet.text.encode('utf-8')])
+    
+    #only prints out 20 in past 7 days :/
+
