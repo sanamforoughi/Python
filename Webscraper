@@ -1,0 +1,10 @@
+import requests
+from bs4 import BeautifulSoup
+import csv
+
+url = 'WHATEVER'
+response = requests.get(url)
+html = response.content
+soup = BeautifulSoup(html)
+table = soup.find('tbody', attrs={'class': 'stripe'})
+print soup.prettify()
