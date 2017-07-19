@@ -110,3 +110,76 @@ list_of_retweets = [element for element in tweets['text'].values if element.star
 
 
 print "Number of Retweets : " + str(len(list_of_retweets))
+
+# This is where things get really weird: 
+# General plotting function for the different information extracted Command + / to comment/uncomment
+
+# def plot_tweets_per_category(category, title, x_title, y_title, top_n=5, output_filename="plot.png"):
+#     """
+#     :param category: Category plotted, can be tweets users, tweets language, tweets country etc ..
+#     :param title: Title of the plot
+#     :param x_title: List of the items in x
+#     :param y_title: Title of the variable plotted
+#     :return: a plot that we can save as pdf or png instead of displaying to the screen
+#     """
+    
+#     tweets_by_cat = category.value_counts()
+#     fig, ax = plt.subplots()
+#     ax.tick_params(axis='x')
+#     ax.tick_params(axis='y')
+#     ax.set_xlabel(x_title)
+#     ax.set_ylabel(y_title)
+#     ax.set_title(title)
+#     tweets_by_cat[:top_n].plot(ax=ax, kind='bar')
+#     fig.savefig(output_filename)
+#     fig.show()
+
+#     plot_tweets_per_category(tweets['lang'], "#bigknit by Language", 
+#                              "Language", 
+#                              "Number of Tweets", 
+#                              2000,
+#                              "bigknit_per_language.png")
+
+df = pd.DataFrame(tweets['created_at'].value_counts(), columns=['number_tweets'])
+df['date'] = df.index
+df.head()
+
+days = [item.split(" ")[0] for item in df['date'].values]
+df['days'] = days
+grouped_tweets = df[['days', 'number_tweets']].groupby('days')
+tweet_growth = grouped_tweets.sum()
+tweet_growth['days']= tweet_growth.index
+
+tweet_growth
+
+import numpy as np
+fig = plt.figure()
+ax = plt.subplot(111)
+x_pos = np.arange(len(tweet_growth['days'].values))
+ax.bar(x_pos, tweet_growth['number_tweets'].values, align='center')
+ax.set_xticks(x_pos)
+ax.set_title('#bigknit hashtag growth')
+ax.set_ylabel("number tweets")
+ax.set_xticklabels(tweet_growth['days'].values)
+fig.savefig('bigknit_growth.png')
+
+# Final touch = word cloud 
+
+text = " ".join(tweets['text'].values.astype(str))
+
+no_urls_no_tags = " ".join([word for word in text.split()
+                            if 'http' not in word
+                                and not word.startswith('@')
+                                and word != 'RT'
+                            ])
+bigknit_mask = imread("./twitter_mask.png", flatten=True)
+
+
+wc = WordCloud(background_color="white", font_path="/Library/Fonts/Verdana.ttf", stopwords=STOPWORDS, width=1800,
+                      height=140, mask=bigknit_mask)
+wc.generate(no_urls_no_tags)
+plt.imshow(wc)
+plt.axis("off")
+plt.savefig('bigknit.png', dpi=300)
+
+
