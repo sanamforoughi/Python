@@ -95,3 +95,17 @@ tweets['retweet_count'] = map(lambda tweet: tweet['retweet_count'], bigknit_data
 tweets['favorite_count'] = map(lambda tweet: tweet['favorite_count'], bigknit_data)
 
 print tweets.head()
+
+# print tweets.head()
+
+list_of_original_tweets = [element for element in tweets['text'].values if not element.startswith('RT')]
+
+# prints element in list so you can slice it
+print list_of_original_tweets[1:80000]# It prints out a string of "xe0\xb8\x99\xe0\xb8\xb2\xe0\xb8\x99\xe0\xb9\x81\xe0\xb8\x84\xe0\xb9\x88\xe0\xb9\x84\xe0\xb8\xab\xe0\xb8\x99\xe0\xb9\x81\xe0\xb8\xa5\xe0\xb9\x89\xe0\xb8\xa7\xe0\xb8\x97\xe0\xb8\xb5\xe0\xb9\x88\xe0\xb8\x84\xe0\xb8\xb8\xe0\xb8\x93\xe0\xb9\x81\xe0\xb8\xa5\xe0\xb8\xb0\xe0\xb8\x84\xe0\xb8\xb8\xe0\xb8\x93\xe0\xb9\x81\xe0\xb8\xa1\xe0\xb9\x88\xe0\xb9\x84\xe0\xb8\xa1\xe0\xb9\x88\xe0\xb9\x84\xe0\xb8\x94\xe0\xb9\x89\xe0\xb8\xaa\xe0\xb8\x9" so don't slice it! 
+
+print "Number of Original Tweets : " + str(len(list_of_original_tweets))
+
+list_of_retweets = [element for element in tweets['text'].values if element.startswith('RT')]
+
+
+print "Number of Retweets : " + str(len(list_of_retweets))
