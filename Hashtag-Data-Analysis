@@ -38,10 +38,10 @@ rcParams['figure.figsize'] = 20, 10
 
 # Prepapring the app
 
-access_token ="481343324-bO4jz0hvwVeGND2ElkESD7FKbTSZWnYvl2h2Vow8"
-access_token_secret ="K86kCWnUtQaxwX629mLVTTeUHJi4JN3FFMN16KtCR0khZ"
-consumer_key ="GCxC0nVaHXdwirCC78Spzc0ZD"
-consumer_secret ="tXJTFgorETn1qD69smE0vFJtpQ4oDIoTQeZqwr8tmspLAEP3ES"
+access_token ="
+access_token_secret ="
+consumer_key ="
+consumer_secret ="
 
 MAX_TWEETS = 8000
 
