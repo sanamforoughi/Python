@@ -67,7 +67,7 @@ with open(log_tweets, 'w') as outfile:
         outfile.write(json.dumps(tweet._json))
         outfile.write("\n")
 
-# print bigknit_data[0]
+# print bigknit_data[0] # this looks atrocious! 
 
 # Dataframes are da bomb 
 tweets = pd.DataFrame()
