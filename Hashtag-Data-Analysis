@@ -25,19 +25,20 @@ warnings.filterwarnings("ignore")
 # Seaborn plots
 sns.set_palette("deep", desat=.6)
 sns.set_context(rc={"figure.figsize": (8, 4)})
-# for R lovers :)
+
+# R 
 style.use('ggplot')
 rcParams['axes.labelsize'] = 9
 rcParams['xtick.labelsize'] = 9
 rcParams['ytick.labelsize'] = 9
 rcParams['legend.fontsize'] = 7
+
 # rcParams['font.family'] = 'serif'
 rcParams['font.serif'] = ['Computer Modern Roman']
 rcParams['text.usetex'] = False
 rcParams['figure.figsize'] = 20, 10
 
 # Prepapring the app
-
 access_token ="
 access_token_secret ="
 consumer_key ="
@@ -51,11 +52,9 @@ auth.set_access_token(access_token, access_token_secret)
 api = API(auth, wait_on_rate_limit=True)
 
 # Search 
-
 data = Cursor(api.search, q='bigknit').items(MAX_TWEETS)
 
 # Initialise your list which will contain the returned results as json objects, each list item will be a json format of a tweet with all the information ( and it's a lot)
-
 bigknit_data = []
 # You will use this line in production instead of this
 # current_working_dir = os.path.dirname(os.path.realpath(__file__))
@@ -78,7 +77,7 @@ tweets['created_at'] = map(lambda tweet: time.strftime('%Y-%m-%d %H:%M:%S', time
 # Who is the tweet owner
 tweets['user'] = map(lambda tweet: tweet['user']['screen_name'], bigknit_data)
 
-# How many follower this user has
+# How many followers this user has
 tweets['user_followers_count'] = map(lambda tweet: tweet['user']['followers_count'], bigknit_data)
 
 # What is the tweet's content
@@ -91,10 +90,9 @@ tweets['lang'] = map(lambda tweet: tweet['lang'], bigknit_data)
 tweets['Location'] = map(lambda tweet: tweet['place']['country'] if tweet['place'] != None else None, bigknit_data)
 
 # How many times this tweet was retweeted and favorited
+
 tweets['retweet_count'] = map(lambda tweet: tweet['retweet_count'], bigknit_data)
 tweets['favorite_count'] = map(lambda tweet: tweet['favorite_count'], bigknit_data)
-
-print tweets.head()
 
 # print tweets.head()
 
@@ -111,7 +109,8 @@ list_of_retweets = [element for element in tweets['text'].values if element.star
 
 print "Number of Retweets : " + str(len(list_of_retweets))
 
-# This is where things get really weird: 
+# This is where things get really weird
+
 # General plotting function for the different information extracted Command + / to comment/uncomment
 
 # def plot_tweets_per_category(category, title, x_title, y_title, top_n=5, output_filename="plot.png"):
