@@ -1,0 +1,70 @@
+from tweepy import OAuthHandler
+from tweepy import API
+from tweepy import Cursor
+import json
+import pandas as pd
+import matplotlib as mpl
+#mpl.use('Agg')
+import matplotlib.pyplot as plt
+from matplotlib.ticker import MaxNLocator
+from matplotlib import rcParams
+from mpltools import style
+from matplotlib import dates
+from datetime import datetime
+import seaborn as sns
+import time
+import os
+from scipy.misc import imread
+from wordcloud import WordCloud, STOPWORDS, ImageColorGenerator
+import random
+
+# Suppressing warnings
+import warnings
+warnings.filterwarnings("ignore")
+
+# Seaborn plots
+sns.set_palette("deep", desat=.6)
+sns.set_context(rc={"figure.figsize": (8, 4)})
+# for R lovers :)
+style.use('ggplot')
+rcParams['axes.labelsize'] = 9
+rcParams['xtick.labelsize'] = 9
+rcParams['ytick.labelsize'] = 9
+rcParams['legend.fontsize'] = 7
+# rcParams['font.family'] = 'serif'
+rcParams['font.serif'] = ['Computer Modern Roman']
+rcParams['text.usetex'] = False
+rcParams['figure.figsize'] = 20, 10
+
+# Prepapring the app
+
+access_token ="481343324-bO4jz0hvwVeGND2ElkESD7FKbTSZWnYvl2h2Vow8"
+access_token_secret ="K86kCWnUtQaxwX629mLVTTeUHJi4JN3FFMN16KtCR0khZ"
+consumer_key ="GCxC0nVaHXdwirCC78Spzc0ZD"
+consumer_secret ="tXJTFgorETn1qD69smE0vFJtpQ4oDIoTQeZqwr8tmspLAEP3ES"
+
+MAX_TWEETS = 8000
+
+# This handles Twitter authentication and the connection to Twitter Streaming API
+auth = OAuthHandler(consumer_key, consumer_secret)
+auth.set_access_token(access_token, access_token_secret)
+api = API(auth, wait_on_rate_limit=True)
+
+# Search 
+
+data = Cursor(api.search, q='bigknit').items(MAX_TWEETS)
+
+# Initialise your list which will contain the returned results as json objects, each list item will be a json format of a tweet with all the information ( and it's a lot)
+
+bigknit_data = []
+# You will use this line in production instead of this
+# current_working_dir = os.path.dirname(os.path.realpath(__file__))
+current_working_dir = "./"
+log_tweets = current_working_dir  + str(time.time()) + '_bigknittweets.txt'
+with open(log_tweets, 'w') as outfile:
+    for tweet in data:
+        bigknit_data.append(json.loads(json.dumps(tweet._json)))
+        outfile.write(json.dumps(tweet._json))
+        outfile.write("\n")
+
+print bigknit_data[0]
