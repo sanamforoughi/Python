@@ -67,4 +67,31 @@ with open(log_tweets, 'w') as outfile:
         outfile.write(json.dumps(tweet._json))
         outfile.write("\n")
 
-print bigknit_data[0]
+# print bigknit_data[0]
+
+# Dataframes are da bomb 
+tweets = pd.DataFrame()
+
+# We want to know when a tweet was sent
+tweets['created_at'] = map(lambda tweet: time.strftime('%Y-%m-%d %H:%M:%S', time.strptime(tweet['created_at'],'%a %b %d %H:%M:%S +0000 %Y')), bigknit_data)
+
+# Who is the tweet owner
+tweets['user'] = map(lambda tweet: tweet['user']['screen_name'], bigknit_data)
+
+# How many follower this user has
+tweets['user_followers_count'] = map(lambda tweet: tweet['user']['followers_count'], bigknit_data)
+
+# What is the tweet's content
+tweets['text'] = map(lambda tweet: tweet['text'].encode('utf-8'), bigknit_data)
+
+# If available what is the language the tweet is written in
+tweets['lang'] = map(lambda tweet: tweet['lang'], bigknit_data)
+
+# If available, where was the tweet sent from ?
+tweets['Location'] = map(lambda tweet: tweet['place']['country'] if tweet['place'] != None else None, bigknit_data)
+
+# How many times this tweet was retweeted and favorited
+tweets['retweet_count'] = map(lambda tweet: tweet['retweet_count'], bigknit_data)
+tweets['favorite_count'] = map(lambda tweet: tweet['favorite_count'], bigknit_data)
+
+print tweets.head()
