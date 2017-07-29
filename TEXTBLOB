@@ -1,0 +1,18 @@
+from textblob import TextBlob 
+
+# next work to synonymise = http://rwet.decontextualize.com/book/textblob/
+
+#.classifier is a classifier haha
+
+
+wiki = TextBlob("#brosavethechildren #Brofist #ONEWORLD #helpingbuds #Respect @pewdiepie The reason y ur so great is you give so much back to ur fans !! <3") 
+print(wiki.tags) 
+print(wiki.sentiment) 
+print(wiki.word_counts)
+print(wiki.words)
+# print(wiki.pos_word_count) GAH!!!! YOU NEED NLTK FOR THIS: http://streamhacker.com/2010/06/16/text-classification-sentiment-analysis-eliminate-low-information-features/
+
+
+
+
+#find MartiinLill
