@@ -1,0 +1,95 @@
+import numpy as np
+
+
+#Profitability ratios
+#1 ROS Return on ordinary shareholder's funds
+net_profit_year= 2200
+any_preference_dividend= 50
+ordinary_share_capital= 200
+reserves= 50
+ROS= (net_profit_year- any_preference_dividend)/ (ordinary_share_capital +reserves)
+print ("The Return on ordinary shareholder is:")
+print ROS 
+
+
+
+#2 ROE Return on capital employed
+operating_profit= 500 # COGS - Revenue
+share_capital= 20
+non_current_liabilities= 100
+ROE= (operating_profit/ (share_capital + reserves + non_current_liabilities)) * 100 
+print ("The Return on capital employed is:")
+print  ROE
+
+# 3 Operating profit margin
+sales_revenue= 10000
+operating_profit_margin = (operating_profit/sales_revenue) * 100
+print ("The Operating Margin is: ")
+print operating_profit_margin
+
+# 4 Gross profit margin
+gross_profit=300
+gross_profit_margin= (gross_profit / sales_revenue) * 100
+print ("The Gross profit margin is" )
+print gross_profit_margin
+
+#Effeciency Ratios 
+
+# 1 Average inventories turnover period
+
+average_inventories_held= 200
+cost_of_sales=  2000
+AITP=(average_inventories_held/cost_of_sales) * 100
+print( "The average inventory turnover period is:" )
+print AITP
+
+# 2 Average settlement period for trade receivables
+average_trade_receivables= 2
+credit_sales_revenue=200
+ASTR=(average_trade_receivables/credit_sales_revenue) * 100
+print("The Average settlement period for trade receivables is:")
+print ASTR
+
+# 3 Sales Revenue to capital employed
+receivables= 200
+SRCE= sales_revenue/ (share_capital+ receivables+ non_current_liabilities)
+print("The Sales Revenue to capital employed is:")
+print SRCE
+
+# 4 ROCE 
+long_term_capital_employed= 20
+ROCE =(operating_profit/sales_revenue) * (sales_revenue/ long_term_capital_employed)
+print ("The ROCE is:")
+print ROCE
+
+# Liquidity ratios
+current_assets= 200
+current_liabilities= 10
+CRatio=current_assets/current_liabilities
+print ("The current ratio is:")
+print CRatio
+
+# Acid test
+current_assets_less_inventory= 3000
+ATRatio= current_assets_less_inventory / current_liabilities
+print ("The Acid Test Ratio is:")
+print ATRatio
+
+# Break-even
+Fixed_costs= 20
+contribution_per_unit=1 # unit selling price - unit variable cost 
+Break_even_units= Fixed_costs/ contribution_per_unit
+print ("The break-even point in units is:")
+print Break_even_units
+total_sales = 2000 # desired or actual $ figure 
+Break_even_value= Fixed_costs * total_sales 
+
+#percentage margin of sales= (expected sales - break even sales)/ expected sales 
+
+# To do: dividend payout ratio, dividend yield ratio
+# EPS= profit_for_the_year/ number_of_ordinary_shares
+# P/E Ratio = Market value per share/ Earnings per share
+# Gearing ratios
+# Interest cover ratio= operating profit/ interest payable 
+# Gearing ratio = (long-term non-current liabilities / (share capital + reserves + long term non-current liabilities)) * 100
+
