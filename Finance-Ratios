@@ -14,7 +14,11 @@ print ROS
 
 
 #2 ROE Return on capital employed
-operating_profit= 500 # COGS - Revenue
+COGS= 178065
+sales_revenue= 343403
+operating_profit= sales_revenue - COGS
+print ("The operating profit is:")
+print operating_profit
 share_capital= 20
 non_current_liabilities= 100
 ROE= (operating_profit/ (share_capital + reserves + non_current_liabilities)) * 100 
@@ -22,9 +26,9 @@ print ("The Return on capital employed is:")
 print  ROE
 
 # 3 Operating profit margin
-sales_revenue= 10000
-operating_profit_margin = (operating_profit/sales_revenue) * 100
-print ("The Operating Margin is: ")
+
+operating_profit_margin = (operating_profit / sales_revenue) * 100 #This should be 48
+print ("The Operating Profit Margin is:")
 print operating_profit_margin
 
 # 4 Gross profit margin
