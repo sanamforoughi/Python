@@ -1,0 +1,112 @@
+#Basics of how to build a blockchain from scratch, blockchain is basically a distributed database with a set of rules for verifying new additions to the database.
+
+#start off by tracking the accounts of two imaginary people, who will trade virtual money with each other.
+
+#1-We'll need to create a transaction pool of incoming transactions
+#2-validate those transactions
+#3-and make them into a block
+
+#We'll be using a hash function to create a fingerprint of each of our transactions. This hash function links each of our blocks to each other. To make this easier to use, we'll define a helper function to wrap the python hash function that we're using. 
+
+ #(A cryptographic hash function is a hash function which takes an input (or 'message') and returns a fixed-size alphanumeric string. )
+
+# A helper function is a function that performs part of the computation of another function. Helper functions are used to make your programs easier to read by giving descriptive names to computations.
+
+import hashlib, json, sys
+
+def hashMe (msg=""):
+	# For convenience, this is a helper function that wraps our hasing algo
+	if type(msg)!=str:
+			msg = json.dumps(msg,sort_keys=True)
+	# If we don't sort keys, we can't guarantee repeatability! 
+
+	if sys.version_info.major == 2:
+        return 
+        unicode(hashlib.sha256(msg).hexdigest(),'utf-8')
+    else:
+        return h
+        ashlib.sha256(str(msg).encode('utf-8')).hexdigest()
+
+# Next, we want to create a function to generate exchange between Alice and Bob. 
+We'll indicate withdrawals with negative numbers, and deposits with positive numbers. We'll construct our transactions to always be between the two users of our system, and make sure that the deposit is the same magnitude as the witdrawal- i.e. that we're neither creating nor destroying money.
+
+#import random 
+random.seed(0)
+
+def makeTransaction(maxValue=3):
+
+ # This will create valid transactions in the range of (1,maxValue)
+    sign      = int(random.getrandbits(1))*2 - 1  
+
+ # This will randomly choose -1 or 1
+
+    amount    = random.randint(1,maxValue)
+    alicePays = sign * amount
+    bobPays   = -1 * alicePays
+ # By construction, this will always return transactions that respect the conservation of tokens.
+ 
+ # However, note that we have not done anything to check whether these overdraft an account
+    return {u'Alice':alicePays,u'Bob':bobPays}
+
+    # Here you are creating a large set of transactions, then chunk them into blocks.
+
+    txnBuffer= [makeTransaction () for i in range(30)]
+
+    # Next step: making the blocks
+    # take the first k transactions from the transaction buffer and turn them into a block
+    # define a method for checking the validity of the transaction we've pulled into the block
+	# validity function: checks that the input values are valid UTXOs( unspent transaction), 
+	# that the outputs of the transaction are no greater than the input
+	# that the keys used for the signatures are valid
+	# Ethereum: the validation function checks tha the smart contracts were faithfully executed and respect gas limits?
+	# gas limits in Ethereum is a measure of computational effort.
+
+	#Build a basic token system:
+	#1-Sum of deposits and withdrawals must be 0 (tokens are neither created nor destroyed)
+	#2-A user's account must have sufficient funds to cover any withdrawals
+
+# txn = numeric values for the transfer amount
+
+# account balance = state
+
+	def updateState(txn, state):
+
+# Returns: Updated state, with additional users added to state if necessary
+    # NOTE: This does not not validate the transaction- just updates the state!
+    
+    # If the transaction is valid, then update the state
+
+state = state.copy() # As dictionaries are mutable, let's avoid any confusion by creating a working copy of the data.
+    for key in txn:
+        if key in state.keys():
+            state[key] += txn[key]
+        else:
+            state[key] = txn[key]
+    return state
+
+
+def isValidTxn(txn,state): # txn = Assume that the transaction is a dictionary keyed by account names
+
+    # Check that the sum of the deposits and withdrawals is 0
+    if sum(txn.values()) is not 0:
+        return False
+
+
+  # Check that the transaction does not cause an overdraft
+    for key in txn.keys():
+        if key in state.keys(): 
+            acctBalance = state[key] # check to see if there's money in the key
+        else:
+            acctBalance = 0
+        if (acctBalance + txn[key]) < 0:
+            return False
+    
+    return True
+
+# examples of transactions 
+
+print(isValidTxn({u'Alice': -3, u'Bob': 3},state))  # Basic transaction- this works great!
+print(isValidTxn({u'Alice': -4, u'Bob': 3},state))  # But we can't create or destroy tokens!
+print(isValidTxn({u'Alice': -6, u'Bob': 6},state))  # We also can't overdraft our account.
+print(isValidTxn({u'Alice': -4, u'Bob': 2,'Lisa':2},state)) # Creating new users is valid
+print(isValidTxn({u'Alice': -4, u'Bob': 3,'Lisa':2},state)) # But the same rules still apply!
