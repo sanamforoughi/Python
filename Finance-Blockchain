@@ -1,12 +1,12 @@
-#Basics of how to build a blockchain from scratch, blockchain is basically a distributed database with a set of rules for verifying new additions to the database.
-# you can find the full code here: http://ecomunsing.com/build-your-own-blockchain
-#start off by tracking the accounts of two imaginary people, who will trade virtual money with each other.
+#Basics of how to build a blockchain from scratch, blockchain is basically a distributed database, with a set of rules for verifying new additions to the database.
+
+#Start off by tracking the accounts of two imaginary people, who will trade virtual money with each other.
 #1-create a transaction pool of incoming transactions
 #2-validate those transactions
 #3-and make them into a block
 #A cryptographic hash function is a hash function which takes an input (or 'message') and returns a fixed-size alphanumeric string. )
-# A helper function is a function that performs part of the computation of another function. Helper functions are used to make your programs easier to read by giving descriptive names to computations.
-# Full code here: http://ecomunsing.com/build-your-own-blockchain
+#A helper function is a function that performs part of the computation of another function. Helper functions are used to make your programs easier to read by giving descriptive names to computations.
+#Full code here: http://ecomunsing.com/build-your-own-blockchain
 
 from bitcoin import * 
 #f5 to spit out private crypto hash key
@@ -44,7 +44,7 @@ def hashMe (msg=""):
 	else:
 			return hashlib.sha256(str(msg).encode('utf-8')).hexdigest()
 
-# Next, we want to create a function to generate exchange between Alice and Bob. 
+# Next, we want to create a function to generate exchange between user1 and user2 
 #We'll indicate withdrawals with negative numbers, and deposits with positive numbers. We'll construct our transactions to always be between the two users of our system, and make sure that the deposit is the same magnitude as the witdrawal- i.e. that we're neither creating nor destroying money.
 
 import random 
@@ -122,13 +122,13 @@ def isValidTxn(txn,state): # txn = Assume that the transaction is a dictionary k
 
 # examples of transactions
 
-state = {u'Alice':5,u'Bob':5}
+state = {u'user1':5,u'Bob':5}
 
-print(isValidTxn({u'Alice': -3, u'Bob': 3},state))  # Basic transaction- this works great!
-print(isValidTxn({u'Alice': -4, u'Bob': 3},state))  # But we can't create or destroy tokens!
-print(isValidTxn({u'Alice': -6, u'Bob': 6},state))  # We also can't overdraft our account.
-print(isValidTxn({u'Alice': -4, u'Bob': 2,'Lisa':2},state)) # Creating new users is valid
-print(isValidTxn({u'Alice': -4, u'Bob': 3,'Lisa':2},state)) # But the same rules still apply, THERE NEEDS TO BE EQUILIBRIUM
+print(isValidTxn({u'user1': -3, u'Bob': 3},state))  # Basic transaction- this works great!
+print(isValidTxn({u'user1': -4, u'Bob': 3},state))  # But we can't create or destroy tokens!
+print(isValidTxn({u'user1': -6, u'Bob': 6},state))  # We also can't overdraft our account.
+print(isValidTxn({u'user1': -4, u'Bob': 2,'Lisa':2},state)) # Creating new users is valid
+print(isValidTxn({u'user1': -4, u'Bob': 3,'Lisa':2},state)) # But the same rules still apply, THERE NEEDS TO BE EQUILIBRIUM
 
 #Building the Blockchain: Now that you have the transactions, you need to build the blocks.
 #Define the genesis block aka the first block in the system.
@@ -136,6 +136,6 @@ print(isValidTxn({u'Alice': -4, u'Bob': 3,'Lisa':2},state)) # But the same rules
 
 #Create an account for two users and give them 50 coins each.
 
-state = {u'Alic}
+state = {u'user1}
 
 
