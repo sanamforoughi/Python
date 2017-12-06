@@ -1,36 +1,53 @@
 #Basics of how to build a blockchain from scratch, blockchain is basically a distributed database with a set of rules for verifying new additions to the database.
-
+# you can find the full code here: http://ecomunsing.com/build-your-own-blockchain
 #start off by tracking the accounts of two imaginary people, who will trade virtual money with each other.
-
-#1-We'll need to create a transaction pool of incoming transactions
+#1-create a transaction pool of incoming transactions
 #2-validate those transactions
 #3-and make them into a block
-
-#We'll be using a hash function to create a fingerprint of each of our transactions. This hash function links each of our blocks to each other. To make this easier to use, we'll define a helper function to wrap the python hash function that we're using. 
-
- #(A cryptographic hash function is a hash function which takes an input (or 'message') and returns a fixed-size alphanumeric string. )
-
+#A cryptographic hash function is a hash function which takes an input (or 'message') and returns a fixed-size alphanumeric string. )
 # A helper function is a function that performs part of the computation of another function. Helper functions are used to make your programs easier to read by giving descriptive names to computations.
+# Full code here: http://ecomunsing.com/build-your-own-blockchain
+
+from bitcoin import * 
+#f5 to spit out private crypto hash key
+priv = random_key()
+#risky so don't create a brain wallet aka priv =ha256('mother's maiden name') 
+print(priv)
+
+#pub key
+pub= privtopub(priv)
+print(pub)
+
+#address
+addr=pubtoaddr(pub)
+
+#block.io fetches transaction data using history('addr')
+#Peter todd's github or pybitcointools
+
+pub1=privtopub(random_key())
+pub2=privtopub(random_key())
+pub3=privtopub(random_key())
+multi1=mk_multisig_script(pub1,pub2,pub3) #order sensitive..
+maddr=scriptaddr(multi1) #P2SG
+print(maddr) #unique multisig address
 
 import hashlib, json, sys
 
 def hashMe (msg=""):
-	# For convenience, this is a helper function that wraps our hasing algo
+	# For convenience, this is a helper function that wraps our hashing algo
 	if type(msg)!=str:
-			msg = json.dumps(msg,sort_keys=True)
-	# If we don't sort keys, we can't guarantee repeatability! 
+			msg = json.dumps(msg,sort_keys=True) # If we don't sort keys, we can't guarantee repeatability
 
 	if sys.version_info.major == 2:
-        return 
-        unicode(hashlib.sha256(msg).hexdigest(),'utf-8')
-    else:
-        return h
-        ashlib.sha256(str(msg).encode('utf-8')).hexdigest()
+    		return 
+    unicode(hashlib.sha256(msg).hexdigest(),'utf-8')
+	else:
+			return hashlib.sha256(str(msg).encode('utf-8')).hexdigest()
 
 # Next, we want to create a function to generate exchange between Alice and Bob. 
-We'll indicate withdrawals with negative numbers, and deposits with positive numbers. We'll construct our transactions to always be between the two users of our system, and make sure that the deposit is the same magnitude as the witdrawal- i.e. that we're neither creating nor destroying money.
+#We'll indicate withdrawals with negative numbers, and deposits with positive numbers. We'll construct our transactions to always be between the two users of our system, and make sure that the deposit is the same magnitude as the witdrawal- i.e. that we're neither creating nor destroying money.
 
-#import random 
+import random 
 random.seed(0)
 
 def makeTransaction(maxValue=3):
@@ -41,12 +58,12 @@ def makeTransaction(maxValue=3):
  # This will randomly choose -1 or 1
 
     amount    = random.randint(1,maxValue)
-    alicePays = sign * amount
-    bobPays   = -1 * alicePays
+    user1Pays = sign * amount
+    user2Pays   = -1 * user1Pays
  # By construction, this will always return transactions that respect the conservation of tokens.
  
  # However, note that we have not done anything to check whether these overdraft an account
-    return {u'Alice':alicePays,u'Bob':bobPays}
+    return {u'user1':user1Pays,u'user2':user2Pays}
 
     # Here you are creating a large set of transactions, then chunk them into blocks.
 
@@ -103,10 +120,22 @@ def isValidTxn(txn,state): # txn = Assume that the transaction is a dictionary k
     
     return True
 
-# examples of transactions 
+# examples of transactions
+
+state = {u'Alice':5,u'Bob':5}
 
 print(isValidTxn({u'Alice': -3, u'Bob': 3},state))  # Basic transaction- this works great!
 print(isValidTxn({u'Alice': -4, u'Bob': 3},state))  # But we can't create or destroy tokens!
 print(isValidTxn({u'Alice': -6, u'Bob': 6},state))  # We also can't overdraft our account.
 print(isValidTxn({u'Alice': -4, u'Bob': 2,'Lisa':2},state)) # Creating new users is valid
-print(isValidTxn({u'Alice': -4, u'Bob': 3,'Lisa':2},state)) # But the same rules still apply!
+print(isValidTxn({u'Alice': -4, u'Bob': 3,'Lisa':2},state)) # But the same rules still apply, THERE NEEDS TO BE EQUILIBRIUM
+
+#Building the Blockchain: Now that you have the transactions, you need to build the blocks.
+#Define the genesis block aka the first block in the system.
+#The genesis block is not linked to any prior block
+
+#Create an account for two users and give them 50 coins each.
+
+state = {u'Alic}
+
+
