@@ -28,5 +28,5 @@ for tweet in tweepy.Cursor(api.search,q="#thebigknit",count=100,\
     print tweet.created_at, tweet.text
     csvWriter.writerow([tweet.created_at, tweet.text.encode('utf-8')])
     
-    #only prints out 20 in past 7 days :/
+    #only prints out 20 in past 7 days due to API rate limits  :/
 
