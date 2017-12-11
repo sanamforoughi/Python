@@ -1,25 +1,34 @@
 import pandas as pd
 import pandas_datareader as web # Package and modules for importing data; this code may change depending on pandas version
-import datetime
+from datetime import datetime
+import matplotlib.pyplot as plt
  
+# Looking at bitcoin surge
 
-start = datetime.datetime(2017,1,1)
-end = datetime.date.today()
- 
+end = datetime.now()
+start = datetime(end.year - 5, end.month, end.day)
+df = web.DataReader("BTC-USD", 'yahoo', start, end) #BTC-GBP AAPL any company/financial instrument really..
+#source: https://uk.finance.yahoo.com/quote/BTCUSD=X?ltr=1
+     
+print df.tail()
 
-# First argument is the series we want, second is the source ("yahoo" for Yahoo! Finance), third is the start date, fourth is the end date
-bitcoin = web.DataReader("BTC-USD", "yahoo", start, end)
- 
-type(bitcoin)
+# summary statistics accross the whole DataFrame
 
-print bitcoin.head()
+print df.describe()
 
-#Visualise it
+# closing prince for most recent 5 tradinG days 
 
-import matplotlib.pyplot as plt  
-# Import matplotlib
-# This line is necessary for the plot to appear in a Jupyter notebook
+print df[['Close']].tail()
 
-bitcoin["Adj Close"].plot(grid= True)
+# volume statistics
+
+vol = df[['Volume']]
+print "Min: %s Max: %s Average: %s" % (vol.min().values[0], vol.max().values[0], vol.mean().values[0])
+
+# plot the historical closing prices and volume using matplotlib
+
+plots = df[['Close', 'Volume']].plot(subplots=True, figsize=(10, 10))
+plt.show()
+
 
 
