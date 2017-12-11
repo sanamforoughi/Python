@@ -31,12 +31,13 @@ plots = df[['Close', 'Volume']].plot(subplots=True, figsize=(10, 10))
 plt.show()
 
 # chart a basic 50 period moving average of the closing price
-
-import pandas as pd
+# SMA is when you average the close prices from 50 and 200 days onwards..
 df['ma50'] = pd.rolling_mean(df['Close'], 50)
 df['ma200'] = pd.rolling_mean(df['Close'], 200)
 plots = df[['Close', 'ma50', 'ma200']].plot(subplots=False, figsize=(10, 4))
 plt.show()
+
+
 
 
 
