@@ -4,6 +4,7 @@ Book is Python for Finance by Yuxing Yan
 
 #import numpy
 #print "Internal rate of return", numpy.irr([-1889600,756300,773156,821444, 947778])
+#source: https://www.packtpub.com/mapt/book/big_data_and_business_intelligence/9781785281969/7/ch07lvl1sec174/time-for-action--calculating-the-periodic-payments
 
 # Define the function
 def IRR_f(cashflows, iterations=100):
