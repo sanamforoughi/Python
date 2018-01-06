@@ -38,6 +38,8 @@ for x in range(num_simulations):
         count += 1
     
     simulation_df[x] = price_series
+   
+   # print(simulation_df[x]) #this hurts a little
     
 fig = plt.figure()
 fig.suptitle('Monte Carlo Simulation: HZNP')
