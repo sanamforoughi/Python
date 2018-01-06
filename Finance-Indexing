@@ -1,43 +1,51 @@
+import pandas_datareader as web
 import pandas as pd
-import pandas_datareader as web # Package and modules for importing data; this code may change depending on pandas version
-from datetime import datetime
+import datetime as dt
+import numpy as np
 import matplotlib.pyplot as plt
- 
-# Looking at bitcoin surge
+from matplotlib import style
 
-end = datetime.now()
-start = datetime(end.year - 5, end.month, end.day)
-df = web.DataReader("BTC-USD", 'yahoo', start, end) #BTC-GBP AAPL any company/financial instrument really..
-#source: https://uk.finance.yahoo.com/quote/BTCUSD=X?ltr=1
-     
-print df.tail()
+style.use('ggplot')
 
-# summary statistics accross the whole DataFrame
+start = dt.datetime(2012, 01, 03)
+end = dt.datetime(2018, 01, 06)
 
-print df.describe()
+prices = web.DataReader('MACK', 'yahoo', start, end)['Close']
+returns = prices.pct_change()
 
-# closing prince for most recent 5 tradinG days 
+last_price = prices[-1]
 
-print df[['Close']].tail()
+#Number of Simulations
+num_simulations = 1000
+num_days = 252
 
-# volume statistics
+simulation_df = pd.DataFrame()
 
-vol = df[['Volume']]
-print "Min: %s Max: %s Average: %s" % (vol.min().values[0], vol.max().values[0], vol.mean().values[0])
+for x in range(num_simulations):
+    count = 0
+    daily_vol = returns.std()
+    
+    price_series = []
+    
+    price = last_price * (1 + np.random.normal(0, daily_vol))
+    price_series.append(price)
+    
+    for y in range(num_days):
+        if count == 251:
+            break
+        price = price_series[count] * (1 + np.random.normal(0, daily_vol))
+        price_series.append(price)
+        count += 1
+    
+    simulation_df[x] = price_series
 
-# plot the historical closing prices and volume using matplotlib
-
-plots = df[['Close', 'Volume']].plot(subplots=True, figsize=(10, 10))
+    # print(simulation_df[x]) #this hurts a little
+    
+fig = plt.figure()
+fig.suptitle('Monte Carlo Simulation: MACK')
+plt.plot(simulation_df)
+plt.axhline(y = last_price, color = 'r', linestyle = '-')
+plt.xlabel('Day')
+plt.ylabel('Price')
 plt.show()
-
-# chart a basic 50 period moving average of the closing price
-# SMA is when you average the close prices from 50 and 200 days onwards..
-df['ma50'] = pd.rolling_mean(df['Close'], 50)
-df['ma200'] = pd.rolling_mean(df['Close'], 200)
-plots = df[['Close', 'ma50', 'ma200']].plot(subplots=False, figsize=(10, 4))
-plt.show()
-
-
-
-
 
