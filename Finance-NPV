@@ -1,0 +1,13 @@
+import numpy 
+
+#cf = np.array([-150000,121119, 922281, 7360029, 22930878])
+
+one_discount_rate= 0.10
+one_initial_investment= -150000
+one_cf_yr1=121119
+one_cf_yr2=922281
+one_cf_yr3=7360029
+one_cf_yr4=22930878
+
+npv1=numpy.npv(one_discount_rate,[one_initial_investment,one_cf_yr1,one_cf_yr2,one_cf_yr3,one_cf_yr4])
+print('NPV is ${:,}'.format(round(npv1,2)))
