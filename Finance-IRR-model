@@ -1,6 +1,14 @@
 """
 Book is Python for Finance by Yuxing Yan
 """
+from fnx.xirr import xirr
+from datetime import date
+
+dates = [date(2020,12,31), date(2020,12,31), date(2020,12,31), date(2020,12,31), date(2020,12,31)]
+
+values = [-600000,121119, 922281, 7360029, 22930878]
+
+xirr(values,dates)
 
 #import numpy
 #print "Internal rate of return", numpy.irr([-1889600,756300,773156,821444, 947778])
