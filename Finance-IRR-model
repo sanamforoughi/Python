@@ -1,6 +1,18 @@
 """
 Book is Python for Finance by Yuxing Yan
 """
+
+import numpy as np
+
+cf = np.array([-150000,121119, 922281, 7360029, 22930878])
+
+
+print np.irr(cf)
+
+NPV = (-150000 + 121119+ 922281+ 7360029+ 22930878)
+
+print NPV
+
 from fnx.xirr import xirr
 from datetime import date
 
