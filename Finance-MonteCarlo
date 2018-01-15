@@ -8,7 +8,7 @@ from matplotlib import style
 style.use('ggplot')
 
 start = dt.datetime(2017, 01, 03)
-end = dt.datetime(2018, 01, 06)
+end = dt.datetime(2018, 01, 06) # you can change this to prove that it works by testing it with last week's price 
 
 prices = web.DataReader('HZNP', 'yahoo', start, end)['Close']
 returns = prices.pct_change()
@@ -17,7 +17,7 @@ last_price = prices[-1]
 
 #Number of Simulations
 num_simulations = 1000
-num_days = 252
+num_days = 252 # number of days your projection is more
 
 simulation_df = pd.DataFrame()
 
