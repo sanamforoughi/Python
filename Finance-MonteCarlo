@@ -42,7 +42,7 @@ for x in range(num_simulations):
      # print np.mean(simulation_df[x])
 
    
-    #print(simulation_df[x])
+    print(simulation_df[x])
     print(price_series)#this hurts a little
     print("this is the mean")
     print np.average(price_series)
