@@ -1,3 +1,5 @@
+import networkx as nx
+
 graph = { "a" : ["c"],
           "b" : ["c", "e"],
           "c" : ["a", "b", "d", "e"],
