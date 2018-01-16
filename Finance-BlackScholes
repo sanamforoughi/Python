@@ -1,0 +1,158 @@
+#you can use it with python 2.7
+from math import sqrt, exp, log, erf
+#https://www.youtube.com/watch?v=pOYTgOemzVo
+
+""" Partial differential equation developped in '73 by Fisher Black and Robert Merton(bankrupt dude) at MIT, best way of dtermining fair prices of options.
+It has five input options: 
+1 the strike price of an option aka derivative contract
+2 the current stock price
+3 the time to expiration
+4 the risk-free rate 3M US Treasury Bill (highly liquid) Swiss Francs is Germany and Switzerland
+5 volatility
+assumes stock prices follow a lognormal distribution because asset prices cannot be negative. 
+-assumes there are no transaction costs or taxes
+-assumes the stock will not pay dividends
+assumes the **risk free interest rate** in constant for all maturities.
+Advantages of eurozone: Portugal can invest in Germany without currency risk...
+
+#!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! call 
+
+from scipy.stats import norm
+from math import *
+def BlackScholes(CallPutFlag,S,K,T,r,d,v):
+	d1 = (log(float(S)/K)+((r-d)+v*v/2.)*T)/(v*sqrt(T))
+	d2 = d1-v*sqrt(T)
+	if CallPutFlag=='c':
+		return S*exp(-d*T)*norm.cdf(d1)-K*exp(-r*T)*norm.cdf(d2)
+	else:
+		return K*exp(-r*T)*norm.cdf(-d2)-S*exp(-d*T)*norm.cdf(-d1)
+
+import matplotlib.animation as animation
+import matplotlib.pyplot as plt
+import numpy as np
+
+plt.clf()
+fig,ax = plt.subplots()
+maturity = 0
+S = np.linspace(80,120,200)
+p = []
+for i in S:
+	p.append(BlackScholes('p', i, 100, 0.005, 0.06, 0, 0.4))
+line, = ax.plot(p)
+#ax.set_ylim()
+def update(step):
+	p = []
+	for i in S:
+		p.append(BlackScholes('p', i, 100, step, 0.06, 0, 0.4))
+line.set_ydata(p)
+
+def data_gen():
+	expStop = 0.0005
+	expStart = 1.5
+	T = np.linspace(expStop,expStart,200)
+	m = -log(expStop/expStart)/expStart
+	for t in T:
+		yield expStart*exp(-m*t)
+ani = animation.FuncAnimation(fig, update, data_gen, interval=100)
+plt.show()
+
+#!!!!!!!!!!!!!!!!!!!!!!!!!!!put
+
+""" # The Black Scholes Formula
+# CallPutFlag - This is set to 'c' for call option, anything else for put
+# S - Stock price
+# K - Strike price
+# T - Time to maturity
+# r - Riskfree interest rate
+# d - Dividend yield
+# v - Volatility
+"""
+from scipy.stats import norm
+from math import *
+
+def BlackScholes(CallPutFlag,S,K,T,r,d,v):
+	d1 = (log(float(S)/K)+((r-d)+v*v/2.)*T)/(v*sqrt(T))
+	d2 = d1-v*sqrt(T)
+	if CallPutFlag=='c':
+		return S*exp(-d*T)*norm.cdf(d1)-K*exp(-r*T)*norm.cdf(d2)
+	else:
+		return K*exp(-r*T)*norm.cdf(-d2)-S*exp(-d*T)*norm.cdf(-d1)
+
+import matplotlib.animation as animation
+import matplotlib.pyplot as plt
+import numpy as np
+
+plt.clf()
+fig,ax = plt.subplots()
+
+maturity = 0
+S = np.linspace(80,120,200)
+
+p = []
+for i in S:
+	p.append(BlackScholes('p', i, 100, 0.005, 0.06, 0, 0.4))
+
+line, = ax.plot(p)
+#ax.set_ylim()
+
+def update(step):
+	p = []
+	for i in S:
+		p.append(BlackScholes('p', i, 100, step, 0.06, 0, 0.4))
+	line.set_ydata(p)
+
+def data_gen():
+	expStop = 0.0005
+	expStart = 1.5
+	T = np.linspace(expStop,expStart,200)
+	m = -log(expStop/expStart)/expStart
+	for t in T:
+		yield expStart*exp(-m*t)
+ani = animation.FuncAnimation(fig, update, data_gen, interval=100)
+plt.show()
+
+# it moves on its own
+#source: http://janroman.dhis.org/stud/I2014/BS2/BS_Daniel.pdf
+
+
+#!!!!!!!!!! Combination super awesome code that doesn't work 
+
+       """ s: initial stock price
+        k: strike price
+        t: expiration time
+        v: volatility
+        rf: risk-free rate
+        div: dividend
+        cp: +1/-1 for call/put
+        """
+
+from decimal import*
+getcontext().prec=5
+
+#inputs
+undprice = float(input("Current Stock Price?:") # S
+strikeprice = float(input("Strike Price?:") #K review time
+time =float(input("Days to expiration?:") # time until expiration in days
+rate = float(input ("Current Interest rate?:") # annualized risk free rate 
+sigma = float(input"Sigma?:") #standard deviation of a stock's return
+divrate = float(input("Dividend Rate?:?") #dividend yield on the stock
+
+#statistics
+sigTsquared= sqrt(Decimal(time)/365)*sigma 
+edivT = exp ((-divate*time)/365)
+ert= exp ((-rate*time)/365)
+d1= (log(undprice*edivT/strike) + (rate + .5*(sigma**2)*time/365)/sigTsquared
+d2= d1-sigTsquared
+Nd1=(1+erf(d1/sqrt(2)))
+Nd2= (1+erf(d2/sqrt(2)))
+iNd1= (1+erf(-d1/sqrt(2)))/2
+iNd2=(1+erf(-d2/sqrt(2)))/2
+
+#outputs
+callPrice= round (undprice*edivT*Nd1-strike*ert*Nd2,2)
+putPrice= round(strike*ert*iNd2-undprice*edivT*iNd1,2)
+
+#Operations
+print("")
+print("Call Price = " + str(callPrice))
+print("Put Price =" + str(putPrice))
