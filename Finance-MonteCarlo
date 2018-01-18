@@ -73,4 +73,4 @@ plt.xlabel('Day')
 plt.ylabel('Price')
 plt.show()
 
-#1838 the first time, 1085 the second time, 1232, bought at 1312.24
+# bought at 1312.24
