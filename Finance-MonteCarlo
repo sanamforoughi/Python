@@ -6,20 +6,36 @@ import matplotlib.pyplot as plt
 from matplotlib import style
 
 #http://www.pythonforfinance.net/2016/11/28/monte-carlo-simulation-in-python/
+#https://www.rapidtables.com/math/symbols/Statistical_Symbols.html
+#list of distributions..: normal, lognormal(longtailish), uniform, triangular, PERT(weight average), Discrete (yay there's 22 subtypes)
+
+
+
+"""The monte carlo theory of a brownian-walk output: it accounts for risk, it shows the extreme possibilities using a probability distribution
+    This is the equation: dS/S = exp(μX (dT) + std€X(dT)^1/2))
+    dS= change in time from one step to the next
+    S=previous value
+    dT= change in time from one step to the next (purchased date)
+    std= annualised volatility or the standard deviation
+    €= value from a probability distribution (Monte Carlo..)
+
+    The simulation provides a number of advantages over deterministic or single point estimates 
+    Probabilitic results, graphical results, sensitivity analysis, scenario analysis, correlation of inputs
+    """
 
 style.use('ggplot')
 
-start = dt.datetime(2017, 01, 03)
-end = dt.datetime(2018, 01, 06) # you can change this to prove that it works by testing it with last week's price 
+start = dt.datetime(2012, 01, 03)
+end = dt.datetime(2018, 01, 17) # you can change this to prove that it works by testing it with last week's price 
 
-prices = web.DataReader('HZNP', 'yahoo', start, end)['Close']
+prices = web.DataReader('AMZN', 'yahoo', start, end)['Close']
 returns = prices.pct_change()
 
 last_price = prices[-1]
 
 #Number of Simulations
 num_simulations = 1000
-num_days = 252 # number of days your projection is more
+num_days = 800 # !!!!!!!!!!! number of days your projection is for
 
 simulation_df = pd.DataFrame()
 
@@ -50,9 +66,11 @@ for x in range(num_simulations):
     print np.average(price_series)
     
 fig = plt.figure()
-fig.suptitle('Monte Carlo Simulation: HZNP')
+fig.suptitle('Monte Carlo Simulation: AMZN')
 plt.plot(simulation_df)
 plt.axhline(y = last_price, color = 'r', linestyle = '-')
 plt.xlabel('Day')
 plt.ylabel('Price')
 plt.show()
+
+#1838 the first time, 1085 the second time, 1232, bought at 1312.24
