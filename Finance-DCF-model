@@ -1,9 +1,16 @@
 import numpy as np
 from pandas import Series, DataFrame 
 
-# The discounted payback period is one of several capital budget methods use to evaluate capital investments. 
-# It gives the number of years requied to recover the original investment in a project. 
-# It takes into account the time value of money by discounting the future cash flows at a desired rate of return.
+'''The discounted payback period is one of several capital budget methods use to evaluate capital investments. 
+It gives the number of years requied to recover the original investment in a project. 
+It takes into account the time value of money by discounting the future cash flows at a desired rate of return.
+Calculated as:
+
+DCF = [CF1/(1+r)1] + [CF2/(1+r)2] + ... + [CFn/(1+r)n] 
+
+CF = Cash Flow
+
+r= discount rate (WACC) '''
 
 #Desired rate of return, is say 10%
 rate= 0.1 #don't use a fraction
