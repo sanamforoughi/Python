@@ -26,9 +26,9 @@ for tweet in tweepy.Cursor(api.search,q="#$VWO",count=1000000,\
     csvWriter.writerow([tweet.created_at, tweet.text.encode('utf-8'), tweet.retweet_count,])
     
     
-    #only prints out 20 in past 7 days due to API rate limits  :/
+   
 
-print("THIS IS A HUGGGE AMOUNT OF DATA")    
+print("THIS IS A HUGGGE AMOUNT OF INFO")    
 
 # sentiment 
 for tweet in tweepy.Cursor(api.search,q="#$VWO",count=1000000,\
