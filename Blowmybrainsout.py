@@ -28,7 +28,7 @@ for tweet in tweepy.Cursor(api.search,q="#$VWO",count=1000000,\
     
     #only prints out 20 in past 7 days due to API rate limits  :/
 
-print("THIS IS A HUGGGGGGEEEEEEEEEEE AMOUNT OF DATA")    
+print("THIS IS A HUGGGE AMOUNT OF DATA")    
 
 # sentiment 
 for tweet in tweepy.Cursor(api.search,q="#$VWO",count=1000000,\
