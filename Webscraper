@@ -1,10 +1,15 @@
-import requests
-from bs4 import BeautifulSoup
-import csv
+import urllib
+from urlparse import urlparse
+import re
 
-url = 'WHATEVER'
-response = requests.get(url)
-html = response.content
-soup = BeautifulSoup(html)
-table = soup.find('tbody', attrs={'class': 'stripe'})
-print soup.prettify()
+url='yourwebsite'
+values= {'s': 'basics',
+        'submit':'search'}
+
+data= urllib.urlencode(values)
+data=data.encode('utf-8')
+
+response=urllib.urlopen(url,data)
+responseData=response.read()
+
+print responseData
