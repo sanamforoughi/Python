@@ -2,6 +2,9 @@ import networkx
 import networkx as nx
 import matplotlib.pyplot as plt
 
+#https://networkx.github.io/documentation/stable/tutorial.html#directed-graphs
+#Graph operations: https://networkx.github.io/documentation/stable/tutorial.html#graph-generators-and-graph-operations
+
 '''orginal code from: https://stackoverflow.com/questions/20133479/how-to-draw-directed-graphs-using-networkx-in-python
 Sequoia Capital: Accel, 500Startups, NEA, ycombinator,NorwestVP, GVTeam,a16z
 Accel Partners: sequoia, ycombinator,insightpartners,GVTeam,a16z
