@@ -5,10 +5,25 @@ import nltk
 from nltk.corpus import stopwords
 stops = set(stopwords.words('english'))  # nltk stopwords list
 
-documents = ["xxx",
-            'xx',
-            "xx'"]
+documents = ["B2B cybersecurity platform Expel announced todaythat it raised a $20 million Series B led by Silicon Valley-based Scale Venture Partners. New Enterprise Associates, Battery Ventures, Greycroft, and other venture capital firms also participated in the round.Follow Crunchbase News on Twitter &FacebookPrior to this capital event, the company raised a $7.5 million Series A led by Washington D.C.-based Paladin Capital Group in September 2016. Its latest round brings the company’s aggregate funds raised to $27.5 million.Expel was founded in Mclean, Virginia by Dave Merkel, Yanek Korff, and Justin Bajko in 2016. The startup aims to demystify the cybersecurity space with its security threat monitoring and detecting products. The startup boasts itself as the transparent, cooperative alternative to other managed security service providers (MSSPs).“Most MSSPs and MDRs operate as a ‘black box’ and the customer has no idea what they’re doing,” CEO Dave Merkel told Crunchbase News in an email.Expel’s user interface is meant to give customers an interactive look at the threats found by analysts, the processes taken to stall those threats, as well as action items for customers to fix current and future threats to security. Its products integrate with pre-purchased security platforms, and the startup also offers a “hunting” option which finds other existing security threats.“Since the initial raise in 2016, we built and launched the offering, built our security operations center (SOC), signed our initial group of customers and grew the company to 55 employees,” Merkel told Crunchbase News.According to its press release, Expel will use its newly raised capital for product development and go-to-market activities. Merkel mentioned to Crunchbase News that Expel will also add new offerings to manage customer cloud environments.Increased focus on cloud computing has brought along further interest in cybersecurity both regarding data use and security threats. As everyone is aware, Facebook and other social media outlets have been under fire for lax security and data management. Meanwhile, Carbon Black, a security-focused SaaS firm, recently filed to go public. In light of the current political climate and discussions surrounding the issue, this is quite the time to be a security monitoring business focused on transparency and user involvement."]
 
+import lda
+from sklearn.feature_extraction.text import CountVectorizer
+import numpy as np
+import nltk
+from nltk.corpus import stopwords
+stops = set(stopwords.words('english'))  # nltk stopwords list
+
+documents = ["Liz Dawn: Coronation Street's Vera Duckworth dies at 77",
+            'Game of Thrones stars Kit Harington and Rose Leslie to wed',
+            'Tony Booth: Till Death Us Do Part actor dies at 85',
+            'The Child in Time: Mixed reaction to Benedict Cumberbatch drama',
+            "Alanna Baker: The Cirque du Soleil star who 'ran off with the circus'",
+            'How long can The Apprentice keep going?',
+            'Strictly Come Dancing beats X Factor for Saturday viewers',
+            "Joe Sugg: 8 things to know about one of YouTube's biggest stars",
+            'Sir Terry Wogan named greatest BBC radio presenter',
+            "DJs celebrate 50 years of Radio 1 and 2'"]
 clean_docs = []
 for doc in documents:
     # set all to lower case and tokenize
@@ -28,5 +43,18 @@ n_iter = 2000
 lda_model = lda.LDA(n_topics=n_topics, n_iter=n_iter)
 X_topics = lda_model.fit_transform(cvz)
 
-print topics_words
+n_top_words = 3
+topic_summaries = []
+
+topic_word = lda_model.topic_word_  # get the topic words
+vocab = cvectorizer.get_feature_names()
+for i, topic_dist in enumerate(topic_word):
+    topic_words = np.array(vocab)[np.argsort(topic_dist)][:-(n_top_words+1):-1]
+    topic_summaries.append(' '.join(topic_words))
+    print('Topic {}: {}'.format(i+1, ' '.join(topic_words)))
+
+# How to predict a new document?
+new_text = '50 facts about Radio 1 & 2 as they turn 50'
+
+print topic_words
 print X_topics
