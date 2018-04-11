@@ -1,0 +1,31 @@
+import lda
+from sklearn.feature_extraction.text import CountVectorizer
+import numpy as np
+import nltk
+from nltk.corpus import stopwords
+stops = set(stopwords.words('english'))  # nltk stopwords list
+
+documents = ["xxx",
+            'xx',
+            "xx'"]
+
+clean_docs = []
+for doc in documents:
+    # set all to lower case and tokenize
+    tokens = nltk.tokenize.word_tokenize(doc.lower())
+    # remove stop words
+    texts = [i for i in tokens if i not in stops]
+    clean_docs.append(texts)
+
+# join back all tokens to create a list of docs
+docs_vect = [' '.join(txt) for txt in clean_docs]
+
+cvectorizer = CountVectorizer(max_features=10000, stop_words=stops)
+cvz = cvectorizer.fit_transform(docs_vect)
+
+n_topics = 3
+n_iter = 2000
+lda_model = lda.LDA(n_topics=n_topics, n_iter=n_iter)
+X_topics = lda_model.fit_transform(cvz)
+
+print topics words
