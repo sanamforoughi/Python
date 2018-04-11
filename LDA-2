@@ -28,4 +28,5 @@ n_iter = 2000
 lda_model = lda.LDA(n_topics=n_topics, n_iter=n_iter)
 X_topics = lda_model.fit_transform(cvz)
 
-print topics words
+print topics_words
+print X_topics
