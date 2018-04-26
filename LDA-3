@@ -29,8 +29,8 @@ texts = []
 for i in doc_set:
     
 # clean and tokenize document string
-raw = i.lower()
-tokens = tokenizer.tokenize(raw)
+	raw = i.lower()
+	tokens = tokenizer.tokenize(raw)
 
 # remove stop words from tokens
 stopped_tokens = [i for i in tokens if not i in en_stop]
@@ -50,4 +50,4 @@ corpus = [dictionary.doc2bow(text) for text in texts]
 # generate LDA model
 ldamodel = gensim.models.ldamodel.LdaModel(corpus, num_topics=2, id2word = dictionary, passes=20)
 
-print(ldamodel.print_topics(num_topics=2, num_words=4))
+print(ldamodel.print_topics(num_topics=12, num_words=40))
