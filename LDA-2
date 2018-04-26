@@ -1,3 +1,58 @@
+
+import lda
+from sklearn.feature_extraction.text import CountVectorizer
+import numpy as np
+import nltk
+from nltk.corpus import stopwords
+stops = set(stopwords.words('english'))  # nltk stopwords list
+
+documents = ["B2B cybersecurity platform Expel announced todaythat it raised a $20 million Series B led by Silicon Valley-based Scale Venture Partners. New Enterprise Associates, Battery Ventures, Greycroft, and other venture capital firms also participated in the round.Follow Crunchbase News on Twitter &FacebookPrior to this capital event, the company raised a $7.5 million Series A led by Washington D.C.-based Paladin Capital Group in September 2016. Its latest round brings the company’s aggregate funds raised to $27.5 million.Expel was founded in Mclean, Virginia by Dave Merkel, Yanek Korff, and Justin Bajko in 2016. The startup aims to demystify the cybersecurity space with its security threat monitoring and detecting products. The startup boasts itself as the transparent, cooperative alternative to other managed security service providers (MSSPs).“Most MSSPs and MDRs operate as a ‘black box’ and the customer has no idea what they’re doing,” CEO Dave Merkel told Crunchbase News in an email.Expel’s user interface is meant to give customers an interactive look at the threats found by analysts, the processes taken to stall those threats, as well as action items for customers to fix current and future threats to security. Its products integrate with pre-purchased security platforms, and the startup also offers a “hunting” option which finds other existing security threats.“Since the initial raise in 2016, we built and launched the offering, built our security operations center (SOC), signed our initial group of customers and grew the company to 55 employees,” Merkel told Crunchbase News.According to its press release, Expel will use its newly raised capital for product development and go-to-market activities. Merkel mentioned to Crunchbase News that Expel will also add new offerings to manage customer cloud environments.Increased focus on cloud computing has brought along further interest in cybersecurity both regarding data use and security threats. As everyone is aware, Facebook and other social media outlets have been under fire for lax security and data management. Meanwhile, Carbon Black, a security-focused SaaS firm, recently filed to go public. In light of the current political climate and discussions surrounding the issue, this is quite the time to be a security monitoring business focused on transparency and user involvement."]
+
+import lda
+from sklearn.feature_extraction.text import CountVectorizer
+import numpy as np
+import nltk
+from nltk.corpus import stopwords
+stops = set(stopwords.words('english'))  # nltk stopwords list
+
+documents = ["500 Startups is raising its first growth-stage fund for its Southeast Asia program 500 Durians. Started in 2013, the fund is headquartered in Singapore, a country with a growing startup ecosystem. By October 2017, 500 Durians had invested in nearly 160 companies in Southeast Asia, and it was reported as the most active tech investor in the region in 2017, according to its site.Some of those investments include early stage deals for well-known companies like Singaporean rideshare giant Grab, which recently acquired Uber’s regional branch, as well as P2P e-commerce platform Carousell.According to the SEC filing posted earlier today, 500 Durians growth stage fund has a target fund size of approximately $21.18 million. $12.05 million has already been raised. The filing indicates that the first LP check was signed on April 12th.A historical analysis suggests that this is the third fund being raised by 500 Durians, which kicked off with a $22.17 million first fund closed in late 2015. Interestingly, that fund was oversubscribed by a factor of two. (The initial filing for that fund cited a target fund size of a mere $10 million.) The second primary fund for 500 Durians is targeting $50 million in capital, and, as declared in a September 2017 filing, had closed $8.08 million of that.Taken together, 500 Durians would have over $93 million under management if and when the new funds are fully sold.The partners listed on 500 Durians’s growth fund are:Christine Tsai, the managing partner of 500 Startups.Khalilee Ng, a managing partner at 500 Startups based in Malaysia. Prior to joining 500 Startups, Ng founded two companies: SAYS.com, which was acquired by Catcha Group, and Groupsmore, which was acquired by Groupon.Vishal Harnal, a general partner of 500 Startups. Prior to joining 500 Startups, Harnal participated in the Kauffman Fellows program.The fund is also connected to 500 Mothership Carry, L.P., a subsidiary of 500 Mothership, the holding company for 500 Startups. It should be noted that 500 Durians is not the only investment fund 500 Startups has spun up in the Southeast Asian region. 500 Startups also raised two other micro-funds in the region. As of a September 2017 regulatory filing, 500 Startups Vietnam was roughly halfway through raising a $10 million fund to invest in Vietnamese startups. 500 TukTuks is its Thailand-based accelerator fund.With such a broad portfolio of startups in the region, it’s difficult to pinpoint which companies the growth fund will invest in. Regardless, the new growth fund from 500 Durians should come as welcome reassurance for Southeast Asian startups. There are sizable gains to double down on.500 Startups did not respond to our request for comments by the time of publication.]
+clean_docs = []
+for doc in documents:
+    # set all to lower case and tokenize
+    tokens = nltk.tokenize.word_tokenize(doc.lower())
+    # remove stop words
+    texts = [i for i in tokens if i not in stops]
+    clean_docs.append(texts)
+
+# join back all tokens to create a list of docs
+docs_vect = [' '.join(txt) for txt in clean_docs]
+
+cvectorizer = CountVectorizer(max_features=10000, stop_words=stops)
+cvz = cvectorizer.fit_transform(docs_vect)
+
+n_topics = 3
+n_iter = 2000
+lda_model = lda.LDA(n_topics=n_topics, n_iter=n_iter)
+X_topics = lda_model.fit_transform(cvz)
+
+n_top_words = 3
+topic_summaries = []
+
+topic_word = lda_model.topic_word_  # get the topic words
+vocab = cvectorizer.get_feature_names()
+for i, topic_dist in enumerate(topic_word):
+    topic_words = np.array(vocab)[np.argsort(topic_dist)][:-(n_top_words+1):-1]
+    topic_summaries.append(' '.join(topic_words))
+    print('Topic {}: {}'.format(i+1, ' '.join(topic_words)))
+
+# How to predict a new document?
+new_text = 'Smartsheet And DocuSign Raise Their IPO Ranges Ahead Of Friday Debuts'
+
+print topic_words
+print X_topics
+
+ß
+
 import lda
 from sklearn.feature_extraction.text import CountVectorizer
 import numpy as np
