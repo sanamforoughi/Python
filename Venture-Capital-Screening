@@ -1,3 +1,35 @@
 #Code the WACC, EBITDA, Chicago Method, Burkus Method, Risk Factor Summation Method, Football Field Method, Rule of thirds, FCF, Burn Rate, MMR, Churn Rate, CLV, CAC, Equity Value, Post money valuation, Pre money valuation, DCF, Enterprise Value, 
 
-#Don't forget to print the instructions for each method
+# FCF 
+#MMR, Churn Rate, Burn Rate, CLV. 
+
+
+# Chicago Method 
+
+Print "Part 1: In this section you will value the company using the Chicago Method"
+Success_chance = 10%
+Sideways_chance = 30%
+Failure_chance = 60%
+
+# Berkus Method 
+
+Print "Part 2: The Berkus Method sums up the requirements needed based on 5 metrics" 
+
+assignment = 500 000 #Change that on the amount based on total allocation divided by 5
+
+" Is this a found idea (basic value, product risk?" if yes add assignment
++
+"Is it prototyped?" if yes add assignment
++
+"Quality management team (reduces execution risk)" if yes add assignment" if yes add assignment 
++
+"Strategic relationships (reduces market risk and competitive risk)"if yes add assignment 
++
+"Product Rollout or Sales (reducing financial or production risk)" if yes add assignment 
+
+# Risk Summation Method 
+
+
+
+
+
