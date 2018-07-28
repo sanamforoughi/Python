@@ -1,4 +1,4 @@
-# This is a code to help you screen series A quicker in a qual ( Chicago method, Burkus method, macro Risk Summation method) and quant (IRR ,FCF, DCF, MMR, ARR, GM,WACC, EBITDA, , FCF, Burn Rate, MMR, Churn Rate, CLV, CAC, Equity Value, Enterprise Value etc.) 
+# This is a code to help you screen series A quicker in a quant/qual way. (Chicago method, Burkus method, macro Risk Summation method) and quant (IRR ,FCF, DCF, MMR, ARR, GM,WACC, EBITDA, , FCF, Burn Rate, MMR, Churn Rate, CLV, CAC, Equity Value, Enterprise Value etc.) 
 import numpy
 
 Post_Money_Valuation = Pre_Money_Valuation + Amount_Invested
