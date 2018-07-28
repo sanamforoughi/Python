@@ -1,10 +1,57 @@
-#Code the WACC, EBITDA, Chicago Method, Burkus Method, Risk Factor Summation Method, Football Field Method, Rule of thirds, FCF, Burn Rate, MMR, Churn Rate, CLV, CAC, Equity Value, Post money valuation, Pre money valuation, DCF, Enterprise Value, 
+# This is a code to help you screen series A quicker in a qual ( Chicago method, Burkus method, macro Risk Summation method) and quant (IRR ,FCF, DCF, MMR, ARR, GM,WACC, EBITDA, , FCF, Burn Rate, MMR, Churn Rate, CLV, CAC, Equity Value, Enterprise Value etc.) 
+import numpy
 
-# FCF, but the most important one is NPV
-#MMR, Churn Rate, Burn Rate, CLV. 
+Post_Money_Valuation = Pre_Money_Valuation + Amount_Invested
+Pre_Money_Valuation= 2,000,000
+Amount_Invested= 10,0000
+Print "Valuation is Post_Money_Valuation" 
 
+# Post_Money_Valuation can also be Enterprise_value / anticipated_ROI 
 
-# Chicago Method 
+initial_capital= 500
+current_capital= 250
+duration_months= 12 # default 
+burn_rate = (initial_capital-current_capital)/12
+Print "Burn rate is burn_rate"
+
+# Acquisition/Revenue ratio 
+
+Equity_value = Firm_value - Debt_value
+Firm_value = 200
+Equity_value = 150
+print "Equity Value is Equity_value"
+
+GM = revenue - cogs / revenue
+revenue = 200
+cogs = 20
+print "Gross margin is GM"
+
+# GM data; not always the case in Angel/Seed/Series A but should be the case in Series B rounds 
+
+# Enterprise value 
+enterprise_value_nth_year = Post_Money_Valuation + industry_IRR
+industry_IRR = 30 
+Print "the Enterprise value is enterprise_value_nth_year" 
+
+# NPV
+np.npv(0.19,[-100, 39, 59, 55, 20])
+
+# IRR
+round(irr([-100, 39, 59, 55, 20]), 5)
+
+# MRR/ARR/Churn
+Annual_Subscriptions = 330
+Price_per_contract = 1170
+MMR = Price_per_contract / Annual_Subscriptions
+
+Print " The MMR is"  + MMR
+
+Beginning_Customer_Count = 1000
+Losses = 200
+Churn_rate = ((Beginning_Customer_Count-Losses)/Losses) * 100
+Print " the churn rate is Churn_rate"
+
+# Part 2: Qual methods
 
 Print "Part 1: In this section you will value the company using the Chicago Method"
 Success_chance = 10%
@@ -17,17 +64,34 @@ Print "Part 2: The Berkus Method sums up the requirements needed based on 5 metr
 
 assignment = 500 000 #Change that on the amount based on total allocation divided by 5
 
-" Is this a found idea (basic value, product risk?" if yes add assignment
+" 1-Is this a found idea (basic value, product risk?" if yes add assignment
 +
-"Is it prototyped?" if yes add assignment
+"2-Is it prototyped/patented?" if yes add assignment
 +
-"Quality management team (reduces execution risk)" if yes add assignment" if yes add assignment 
+"3-Quality management team (reduces execution risk)" if yes add assignment" if yes add assignment 
 +
-"Strategic relationships (reduces market risk and competitive risk)"if yes add assignment 
+"4-Strategic relationships (reduces market risk and competitive risk)"if yes add assignment 
 +
-"Product Rollout or Sales (reducing financial or production risk)" if yes add assignment 
+"5-Product Rollout or Sales (reducing financial or production risk)" if yes add assignment 
 
-# Risk Summation Method 
+print " Burkus investment is " + sum([])
+
+# Risk Summation Method, 250k + for 1, -250k for -1 (2,500;-2,-500)
+
+RS1 = 250 #1-    Management
+RS2 = 0 #2-    Stage of the business
+RS3 = 0 #3-    Legislation/political risk
+RS4 = 0 #4-    Manufacturing
+RS5 = 250 #5-    Sales and marketing risk
+RS6 = 250 #6-    Funding/capital raising risk
+RS7 = 250 #7-    Competition risk
+RS8 = 0 #8-    Technology risk
+RS9 = 0 #9-    International risk
+RS10 = 0 #10- Litigation risk
+RS11 = 0 #11- Reputation risk
+RS12 = 0 #12- Potential lucrative exit
+
+Print "RSM investment is" sum([1,2,3,4,5,6,7,8,9,10,11,12]) # not sure
 
 
 
