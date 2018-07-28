@@ -21,6 +21,8 @@ Firm_value = 200
 Equity_value = 150
 print "Equity Value is Equity_value"
 
+EBIT
+
 GM = revenue - cogs / revenue
 revenue = 200
 cogs = 20
