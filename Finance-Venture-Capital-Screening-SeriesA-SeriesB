@@ -93,7 +93,7 @@ RS10 = 0 #10- Litigation risk
 RS11 = 0 #11- Reputation risk
 RS12 = 0 #12- Potential lucrative exit
 
-Print "RSM investment is" sum([1,2,3,4,5,6,7,8,9,10,11,12]) # not sure
+Print "RSM investment is" sum([1,2,3,4,5,6,7,8,9,10,11,12]) # not sure on this part need to ask
 
 
 
