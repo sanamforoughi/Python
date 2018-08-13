@@ -5,7 +5,7 @@ from textblob import TextBlob
 #.classifier is a classifier haha
 
 
-wiki = TextBlob("#brosavethechildren #Brofist #ONEWORLD #helpingbuds #Respect @pewdiepie The reason y ur so great is you give so much back to ur fans !! <3") 
+wiki = TextBlob("#brosavethechildren #Brofist #ONEWORLD #helpingbuds #Respect @text") 
 print(wiki.tags) 
 print(wiki.sentiment) 
 print(wiki.word_counts)
