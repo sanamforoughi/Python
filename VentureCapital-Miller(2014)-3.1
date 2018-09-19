@@ -1,0 +1,69 @@
+#Extracting and Scraping Web Site data using Python , one of the website used is https://insurtechnews.com/
+The tranches I look into are: 1-News, Influencers (Matteo Carbone et Andrea Silvello)
+Other websites that I am waiting for permission to be granted: CB insights (Pending), Panorama Insurtech (Pending), Crunchbase (Blocked but will try), Inyvo (pending) and Twitter (Java error need to ask a developper)
+
+# Prepare for python version 3x features and functions 
+from __future__ import division, print_function
+
+# Import packages for web scraping/parsing
+import requests 
+import lxml # which is a function for parsing html 
+from bs4 import BeautifulSoup #DOM html manipulation 
+
+'''# test request package on the home page for 
+1-https://www.google.com/search?num=100&safe=strict&source=hp&ei=V3SiW87kCuOPlwS29pToBQ&q=insurtech+&oq=insurtech+&gs_l=psy-ab.3..0l10.749.3606.0.3908.19.11.4.3.3.0.112.894.10j1.11.0....0...1c.1.64.psy-ab..1.18.1044.0..0i131k1j0i10k1.0.G3DWs4lZz10
+2-Insurtechnews.com,
+3-www.plugandplaytechcenter.com/insurtech
+4-CB insights
+5-Panorama Insurtech
+6-Crunchbase
+7-inyvo
+8-Twitter'''' 
+
+web_page = requests.get('https://insurtechnews.com/influencers', auth =('user', 'pass'))
+#obtain the entirre HTML text for the page of interest
+
+#show the status of the page... should be 200 (which means there is no error)
+web_page_text = web_page.text
+print(web_page_text)
+
+#Now you're going to parse the web text using html functions form lxml; Essentially the programme uses XPath syntax to parse HTML, extracting the text data within paragraph tags. 
+# Behnel (2014) and page 29 of Miller's Book
+
+from lxml.html import parse 
+
+#Store the text with HTML's Tree structure
+web_page_html = lxml.html.fromstring(web_page_text)
+
+# Extract the text within paragraph tags using an lxml XPath query 
+
+#XPath // selects nodes anywhere in the document p for paragraph tags 
+web_page_content = web_page_html.xpath('//p/text()')
+
+# show the resulting text string object but first you need to make sure to enable Javascript
+
+print(web_page_content) # has a few all-blank strings
+print(len(web_page_content))
+print(type(web_page_content))# a list of character strings
+
+# demo of scraping HTML with beautiful soup instead of lxml
+my_soup = BeautifulSoup(web_page_text, "lxml")
+
+#note that my_soup is a BeautifulSoup object 
+print(type(my_soup))
+
+# remove Javascrript code from Beautiful Soup page object 
+# using a comprehension approach
+[x.extract() for x in my_soup.find_all('script')]
+#gather all the text frrom the paragraph tags within the object
+
+#using another list comprehension ? hah?
+soup_content = [x.text for x in my_soup.find_all('p')]
+
+#show the resulting text string object 
+
+print(soup_content) # note absence of all-blank strings
+print(len(soup_content))
+print(type(soup_content)) # a list of character strings
+
+# In conclusion: This is only extracting the website in a txt format, 3.3(one page spider) and especially 3.4* are more effecient 
