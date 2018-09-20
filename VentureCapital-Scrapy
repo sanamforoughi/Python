@@ -1,0 +1,169 @@
+# Crawling and Scraping while Napping with Scrapy, which looks at 20-30 URL nodes per sec :) intro: https://www.youtube.com/watch?v=CsaqVQ4NIEU 
+# Focussed crawl with a ten-headed spider using the scrapy framework
+
+# prepare for Python version 3x. features and functions
+from __future__ import division, print_function
+
+# please read the scrapy documentation at http://doc.scrapy.org 
+
+# workspace directory set to outer folder/dirrectory wnds_chapter_3b
+
+# the operating system commands in this example are Mac Os X 
+
+import scrapy #object oriented framework for crawling and scraping 
+
+import os # operating system commands 
+
+# Function for walking and printing directory structure 
+def list_all(current_directory):
+	for root, dirs, files in os.walk(current_directory):
+	level = root.replace(current_directory,'').count(os.sep)
+	indent = ''*4*(level)
+	print('{}{}/'.format(indent, os.path.basename(root)))
+	indent = ''*4*(level + 1)
+	for f in files:
+		print('{}{}'.format(subindent,f))
+
+
+# initial directory should have this form (except for items beginning with .):
+# 	wnds_chapter_3c
+# 		run_ten_headed_spider.py 
+# 		scrapy.cfg
+# 		scrapy_application/
+#			__init__.py 
+#			items.py
+#			pipelines.py
+#			settings.py
+#			spiders
+#			__init__.py 
+#			ten_headed_spider.py 
+
+#And now you're going to examine the directory structure
+current_directory = os.getcwd()
+list_all(current_directory)
+
+# list the available spiders, showing names to be used for crawling 
+os.system('scrapy list')
+
+#You're going to decide upon the desired forrmat forr exporting output: csv, JSON or XML. 
+
+#Here you're going to emplot JSON for each of the ten sites being crawled 
+#You'll run the spider subclass seperately so that stored rresults may be identified with the website being crawled 
+
+# Test Crawl 
+os.system('scrapy crawl TEST -o results_TEST.json')
+
+# Website 1
+os.system('scrapt crawl Website1 -o results_1.json')
+
+# Website 2
+os.system('scrapt crawl Website2 -o results_2.json')
+
+# Website 3 Harvard Medical School 
+os.system('scrapt crawl HARVARD1 -o results_HARVARD1.json')
+
+# You skipped the Mayo Foundation, the National Institute of Health etc...
+
+#MyItem class defined by
+#Items.py
+
+#Location in directory Structure: 
+#wnds_chapter_3c/scrapy_application/items.py
+
+# establishes data fields for scraped items 
+
+import scrapy # object oriented framework forr crawling and scraping
+
+class MyItem(scrapy.item.Item):
+	# Define the data fields for the item (just one field used here)
+	paragraph = scrapy.item.Field() # paragraph content 
+
+# My pipeline class defined by, also what the heck is a pipeline?
+pipelines.py 
+#Location in directory structure; 
+#wnds_chapter_3c/scrapy_application/pipelines.py
+
+class MyPipeline(object):
+	def process_item(self,item,spider):
+		return item 
+
+# Settings for scrapy.cfg
+# settings.py
+#Location in directory structure; 
+#wnds_chapter_3c/scrapy_application/settings.py looks at 20-30 URL nodes per sec
+
+BOT_NAME = 'MyBot'
+BOT_VERSION = '1.0'
+
+SPIDER_MODULES = ['scrapy_application.spiders']
+NEWSPIDER_MODULE = 'scrapy_application.spiders' 
+USER_AGENT = '%s%s' %(BOT_NAME)
+
+COOKIES_ENABLED = False
+DOWNLOAD_DELAY = 2
+RETRY_ENABLED = False 
+DOWNLOAD_TIMEOUT = 15 
+REDIRECT_ENABLED = False 
+DEPTH_LIMIT = 50 
+
+# You need to look into the above. 
+
+# Spider class defined by
+#script ten_headedspider.py 
+
+# Location in the directory structure , This spider is actually a thing!!! 
+#wnds_chapter_3c/scrapy_application/spiders/ten_headed_spider.py
+
+#Prepare for Python version 3x features and functions 
+from __future__ import division, print_function
+
+#Each spider class gives code for craving and scraping 
+import scrapy 
+from scrapt_application.items import MyItem # item class 
+
+# each spider subclass inherits from BaseSpider
+# each spider subclass is designed to crawl one website 
+# each spider can have its own parrsing logic based on the DOM of the website being crawled and scraped
+
+class MySpiderTEST(scrapy.spider.BaseSpider):
+	name = "TEST" # unique identifier for the spider 
+	allowed domains = ['toutbay.com'] # Not too sure what this is, need to look into it but it limits the crawl to to this domain list 
+
+	start_urls= ['http://toutbay.com'] # first url to crawl in domain 
+
+#Define the parsing method for the spider 
+def parse(self, response): 
+	html_scraper = scrapy.selector.HtmlXPathSelector(response)
+	divs = html_scraper.select('//div') #identify all <div> nodes 
+# XPath syntax to grab all the text in paragraphs in the <div> nodes 
+results = [] #initialise list 
+this_item = MyItem() #use this item class 
+this_item['paragraph'] = divs.select('.//p').extract()
+results.append(this_item) # add to the results list 
+return_results 
+
+class MySpiderAMA(scrapy.spider.BaseSpider): 
+	name = "AMA" # unique identifier for the spider 
+	# limit the crawl to this domain list 
+	allowed_domains = ['ama-assn.org']
+	# first url to crawl in domain 
+	start_urls = ['http://jama.jamanetwork.com/solr/searchresults.aspx?\
+	q=sleepkfd_JournalID=67&f_JournalDisplayName=JAMASearchSourceType=3']
+	#define the parsing method for the spider
+	def parse(self, response:)
+		html_scraper = scrapy.selector.HtmlXPathSelector(response)
+		divs= html_scraper.select('//div') # identify all <div> nodes + #XPath syntax to grab all the text in paragrraphs in the <div> nodes 
+		results = [] # to initialise the list 
+		this_item = MyItem() # use this item class 
+		this_item ['paragraph'] = divs.select('.//p').extract ()
+		results.append(this_item) 
+		return results 
+
+
+	
+
+
+
+
+
+
