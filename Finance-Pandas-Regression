@@ -1,9 +1,9 @@
 import pandas as pd
 import quandl #quandl.com 
 
-quandl.ApiConfig.api_key = 'ENTERYOURKEY'
+quandl.ApiConfig.api_key = 'u_MskoMYjxCugoSYzSx5'
 
-df = quandl.get_table('WIKI/PRICES')
+df = quandl.get_table('WIKI/PRICES', ticker = ['AAPL'])
 
 # print(df.head)
 
@@ -18,5 +18,4 @@ df['PCT_change'] = (df['adj_close'] - df['adj_open']) / df['adj_volume'] * 100.0
 df = df[['adj_close', 'HL_PCT', 'PCT_change', 'adj_volume']]
 print(df.head())
 
-
-# Next up import a csv and mongodb json etc.
+#https://medium.com/python-data/quandl-getting-end-of-day-stock-data-with-python-8652671d6661
