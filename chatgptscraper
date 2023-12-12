@@ -1,0 +1,41 @@
+import requests
+from bs4 import BeautifulSoup
+import csv
+
+# URL to scrape
+url = 'https://www.ycombinator.com/companies'
+
+try:
+    # Send a GET request to the URL
+    response = requests.get(url)
+
+    # Check if the request was successful
+    if response.status_code == 200:
+        # Parse the HTML content of the page
+        soup = BeautifulSoup(response.content, 'html.parser')
+
+        # List to hold all company data
+        companies_data = []
+
+        # Find elements - adjust the selectors as per the actual page structure
+        for company in soup.find_all('a', class_='styles-module__company___1UVnl no-hovercard'):
+            name = company.text.strip()
+            link = company['href']
+            companies_data.append([name, link])
+            print(f"Company Name: {name}, Link: {link}")
+
+        # Writing data to CSV
+        with open('companies.csv', 'w', newline='', encoding='utf-8') as file:
+            writer = csv.writer(file)
+            # Writing the headers
+            writer.writerow(['Company Name', 'Link'])
+            # Writing the data
+            writer.writerows(companies_data)
+
+        print("Data has been written to companies.csv")
+
+    else:
+        print(f"Failed to retrieve the page. Status code: {response.status_code}")
+
+except Exception as e:
+    print(f"An error occurred: {e}")
