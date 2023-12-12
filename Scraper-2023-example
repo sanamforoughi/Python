@@ -1,0 +1,52 @@
+import requests
+from bs4 import BeautifulSoup
+import pandas as pd
+
+
+
+url = "https://www.scrapethissite.com/pages/simple/?ref=gettingstarted.ai"
+
+response = requests.get(url)
+
+# Store HTML content in html_content variable
+html_content = response.content
+
+# Create a soup variable
+# "html.parser" specifies the parser that matches the data type (HTML)
+
+soup = BeautifulSoup(html_content, "html.parser")
+
+# Find all div tags with class country
+countries = soup.find_all("div", class_="country")
+
+# Instantiate list
+data = []
+
+# Loop through each country div
+for country in countries:
+	# Extract the text from the h3 tag with class country-name
+    name = country.find("h3", class_="country-name").text.strip()
+    
+	# Extract the text from the span tag with class country-capital
+    capital = country.find("span", class_="country-capital").text.strip()
+    
+	# Extract the text from the span tag with class country-population
+    population = country.find("span", class_="country-population").text.strip()
+    
+	# Extract the text from the span tag with class country-area
+    area = country.find("span", class_="country-area").text.strip()
+    
+	# Append all text values to our data list
+    data.append([name, capital, population, area])
+
+# Create a pandas DataFrame from our data list
+# Specify friendly column names using columns[] parameter
+df = pd.DataFrame(data, columns=["Country Name", "Capital", "Population", "Area"])
+
+# Convert the Area, and Population values to a numeric type
+df["Area"] = pd.to_numeric(df["Area"])
+df["Population"] = pd.to_numeric(df["Population"])
+
+# Save DataFrame as a CSV file
+df.to_csv("country_data.csv", index=False)
+
